@@ -1,5 +1,5 @@
 import os
-base_path = "/kaggle/working/"
+BASE_PATH = "/kaggle/working/"
 BASE_MODELS_DIR = "/kaggle/working/SwarmUI/Models/Stable-Diffusion"
 LORA_DIR = "/kaggle/working/SwarmUI/Models/Lora"
 VAE_DIR = "/kaggle/working/SwarmUI/Models/VAE"
@@ -12,6 +12,7 @@ CLIP_DIR = "/kaggle/working/SwarmUI/Models/clip"
 COMFY_EXT_DIR = "/kaggle/working/SwarmUI/dlbackend/ComfyUI/custom_nodes"
 
 # Asegurar que las carpetas existan
+os.makedirs(BASE_PATH, exist_ok=True)
 os.makedirs(BASE_MODELS_DIR, exist_ok=True)
 os.makedirs(LORA_DIR, exist_ok=True)
 os.makedirs(VAE_DIR, exist_ok=True)
@@ -21,6 +22,3 @@ os.makedirs(DIFFUSION_DIR, exist_ok=True)
 os.makedirs(TEXT_ENCODER_DIR, exist_ok=True)
 os.makedirs(UNET_DIR, exist_ok=True)
 os.makedirs(CLIP_DIR, exist_ok=True)
-
-os.environ["HOME"] = base_path
-print("Todo Listo")
