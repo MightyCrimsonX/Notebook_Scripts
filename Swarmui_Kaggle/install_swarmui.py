@@ -200,7 +200,7 @@ def main() -> None:
 
     _run("rm -rf /kaggle/working/SwarmUI/Models/VAE")
     _run("mkdir -p /tmp/vae")
-    _run("ln -vs /tmp/vae /kaggle/working/SwarmUI/Models/VAE/tmp_vae")
+    _run("ln -vs /tmp/vae /kaggle/working/SwarmUI/Models/VAE")
 
     _run("rm -rf /kaggle/working/SwarmUI/Models/controlnet")
     _run("mkdir -p /tmp/controlnet")
