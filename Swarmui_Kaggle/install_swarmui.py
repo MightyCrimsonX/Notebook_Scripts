@@ -221,7 +221,10 @@ def main() -> None:
     clone("https://github.com/mcmonkeyprojects/sd-dynamic-thresholding.git")
     clone("https://github.com/KohakuBlueleaf/z-tipo-extension.git")
 
-    os.chdir(COMFY_EXT_DIR / "models")
+    os.chdir(COMFY_EXT_DIR / "z-tipo-extension")
+    _run("uv pip install -r requirements.txt --no-progress")
+
+    os.chdir(COMFY_EXT_DIR / "z-tipo-extension/models")
     wget("https://huggingface.co/KBlueLeaf/DanTagGen-beta/resolve/main/ggml-model-Q8_0.gguf")
 
     # Limpiar y mensaje final
