@@ -10,6 +10,23 @@ from pathlib import Path
 WORK_DIR = Path("/kaggle/working").resolve()
 SWARM_DIR = WORK_DIR / "SwarmUI"
 COMFY_DIR = SWARM_DIR / "dlbackend" / "ComfyUI"
+HOME = "/kaggle/working"
+BASE_MODELS_DIR = "/kaggle/working/SwarmUI/Models/Stable-Diffusion"
+LORA_DIR = "/kaggle/working/SwarmUI/Models/Lora"
+VAE_DIR = "/kaggle/working/SwarmUI/Models/VAE"
+UPSCALER_DIR = "/kaggle/working/SwarmUI/Models/upscale_models"
+CONTROLNET_DIR = "/kaggle/working/SwarmUI/Models/controlnet"
+DIFFUSION_DIR = "/kaggle/working/SwarmUI/Models/diffusion_models"
+TEXT_ENCODER_DIR = "/kaggle/working/SwarmUI/Models/text_encoders"
+UNET_DIR = "/kaggle/working/SwarmUI/Models/unet"
+CLIP_DIR = "/kaggle/working/SwarmUI/Models/clip"
+COMFY_EXT_DIR = "/kaggle/working/SwarmUI/dlbackend/ComfyUI/custom_nodes"
+TMP_MODELS= "/tmp/models"
+TMP_LORAS = "/tmp/loras"
+TMP_VAE = "/tmp/vae"
+TMP_CONTROLNET = "/tmp/controlnet"
+TMP_DIFFUSION = "/tmp/diffusion_models"
+TMP_TEXT_ENCODERS = "/tmp/text_encoders"
 
 def _run(cmd: str, cwd: Path | None = None) -> None:
     """Ejecuta un comando shell."""
@@ -157,24 +174,6 @@ def main() -> None:
     
     _run("pip install -q requests")
 
-
-    HOME = "/kaggle/working"
-    BASE_MODELS_DIR = "/kaggle/working/SwarmUI/Models/Stable-Diffusion"
-    LORA_DIR = "/kaggle/working/SwarmUI/Models/Lora"
-    VAE_DIR = "/kaggle/working/SwarmUI/Models/VAE"
-    UPSCALER_DIR = "/kaggle/working/SwarmUI/Models/upscale_models"
-    CONTROLNET_DIR = "/kaggle/working/SwarmUI/Models/controlnet"
-    DIFFUSION_DIR = "/kaggle/working/SwarmUI/Models/diffusion_models"
-    TEXT_ENCODER_DIR = "/kaggle/working/SwarmUI/Models/text_encoders"
-    UNET_DIR = "/kaggle/working/SwarmUI/Models/unet"
-    CLIP_DIR = "/kaggle/working/SwarmUI/Models/clip"
-    COMFY_EXT_DIR = "/kaggle/working/SwarmUI/dlbackend/ComfyUI/custom_nodes"
-    TMP_MODELS= "/tmp/models"
-    TMP_LORAS = "/tmp/loras"
-    TMP_VAE = "/tmp/vae"
-    TMP_CONTROLNET = "/tmp/controlnet"
-    TMP_DIFFUSION = "/tmp/diffusion_models"
-    TMP_TEXT_ENCODERS = "/tmp/text_encoders"
 
     # Asegurar que las carpetas existan
     os.makedirs(HOME, exist_ok=True)
