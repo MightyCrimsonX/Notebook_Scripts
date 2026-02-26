@@ -118,7 +118,8 @@ def main() -> None:
     # 8. SageAttention
     os.chdir(WORK_DIR)
     wheel = "sageattention-2.1.2-cp312-cp312-linux_x86_64.whl"
-    wget(f"https://huggingface.co/datasets/WhiteAiZ/T4_SageAttention2_For_Google_Colab/resolve/main/python%203.12/{wheel}")
+    wget(f"https://huggingface.co/datasets/WhiteAiZ/T4_SageAttention2_For_Google_Colab/resolve/main/python%203.12/{wheel}", 
+         quiet=True, show_progress=False)
     _run(f"uv pip install {wheel}")
 
     # 9. Wildcards
@@ -224,7 +225,7 @@ def main() -> None:
     tipoext = os.path.join(COMFY_EXT_DIR, "z-tipo-extension")
 
     os.chdir(tipoext)
-    _run("uv pip install -r requirements.txt --no-progress")
+    _run("uv pip install transformers tipo-kgen==0.1.9 --no-progress")
     modelstipo = os.path.join(tipoext, "models")
     os.chdir(modelstipo)
     wget("https://huggingface.co/KBlueLeaf/DanTagGen-beta/resolve/main/ggml-model-Q8_0.gguf")
