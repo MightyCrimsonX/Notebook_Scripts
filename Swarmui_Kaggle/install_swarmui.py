@@ -113,7 +113,6 @@ def main() -> None:
     os.chdir(ext_dir)
     clone("https://github.com/jtreminio/SwarmUI-PromptBuilderExtension.git")
     clone("https://github.com/yoinked-h/MaHiRon-SwarmUI.git")
-    clone("https://github.com/jtreminio/SwarmUI-Qwen-TTS.git")
     clone("https://github.com/Hugs288/TipoForSwarmUI.git")
 
     # 8. SageAttention
