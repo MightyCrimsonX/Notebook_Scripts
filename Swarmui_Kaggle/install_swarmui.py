@@ -59,7 +59,7 @@ def main() -> None:
     os.chdir(WORK_DIR)
 
     # 1. Descargas iniciales y clonar SwarmUI
-    wget("https://huggingface.co/datasets/Mightys/Notebook_Scripts/resolve/main/scripts/dmagic_swarm.py")
+    wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/scripts/dmagic_swarm.py")
     
     if not SWARM_DIR.exists():
         clone("https://github.com/mcmonkeyprojects/SwarmUI")
