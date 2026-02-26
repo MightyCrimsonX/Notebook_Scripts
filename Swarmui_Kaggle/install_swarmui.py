@@ -60,7 +60,7 @@ def main() -> None:
 
     # 1. Descargas iniciales y clonar SwarmUI
     wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/scripts/dmagic_swarm.py")
-    
+    wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/Swarmui_Kaggle/gestor_swarm.py")
     if not SWARM_DIR.exists():
         clone("https://github.com/mcmonkeyprojects/SwarmUI")
     
@@ -174,7 +174,7 @@ def main() -> None:
     
     _run("pip install -q requests")
 
-
+    # 14. Configuración de enlaces simbólicos para modelos y recursos
     # Asegurar que las carpetas existan
     os.makedirs(HOME, exist_ok=True)
     os.makedirs(BASE_MODELS_DIR, exist_ok=True)
@@ -212,6 +212,12 @@ def main() -> None:
     _run("rm -rf /kaggle/working/SwarmUI/Models/text_encoders")
     _run("mkdir -p /tmp/text_encoders")
     _run("ln -vs /tmp/text_encoders /kaggle/working/SwarmUI/Models/text_encoders")
+
+
+    #15 instalacion de custom nodes para comfyui
+    os.chdir(COMFY_EXT_DIR)
+    clone("https://github.com/MightyCrimsonX/Euler-Smea-Dyn-Sampler-Comfyui.git")
+    clone("https://github.com/mcmonkeyprojects/sd-dynamic-thresholding.git")
 
     # Limpiar y mensaje final
     os.system("clear" if os.name != "nt" else "cls")
