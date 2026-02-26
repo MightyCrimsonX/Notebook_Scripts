@@ -104,9 +104,10 @@ def main() -> None:
     # 6. Dependencias de ComfyUI
     os.chdir(COMFY_DIR)
     _run("uv pip install -r requirements.txt --no-progress")
-    _run("uv pip install torch==2.9.1 torchvision==0.24.1 torchaudio xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/cu128 --no-progress")
-    _run("uv pip install onnxruntime gdown pickleshare insightface clip rembg fastcore==1.8.0 ultralytics==8.3.197 --no-progress")
     _run("uv pip install --upgrade pip diffusers transformers --no-progress")
+    _run("uv pip install -U transformers peft --no-progress")
+    _run("uv pip install torch==2.9.1 torchvision==0.24.1 torchaudio xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/cu128 --no-progress")
+    _run("uv pip install onnxruntime gdown pickleshare tipo-kgen==0.1.9 insightface clip rembg fastcore==1.8.0 ultralytics==8.3.197 --no-progress")
     # 7. Extensiones de SwarmUI
     ext_dir = SWARM_DIR / "src" / "Extensions"
     ext_dir.mkdir(parents=True, exist_ok=True)
@@ -222,13 +223,12 @@ def main() -> None:
     clone("https://github.com/mcmonkeyprojects/sd-dynamic-thresholding.git")
     clone("https://github.com/KohakuBlueleaf/z-tipo-extension.git")
 
-    tipoext = os.path.join(COMFY_EXT_DIR, "z-tipo-extension")
+    comfymodels = os.path.join(COMFY_DIR, "models")
+    kgen = os.path.join(comfymodels, "kgen")
+    os.makedirs(kgen, exist_ok=True)
+    os.chdir(kgen)
+    aria2c("https://huggingface.co/KBlueLeaf/TIPO-500M-ft/resolve/main/TIPO-500M-ft-F16.gguf", "TIPO-500M-ft-F16.gguf")
 
-    os.chdir(tipoext)
-    _run("uv pip install transformers tipo-kgen==0.1.9 --no-progress")
-    modelstipo = os.path.join(tipoext, "models")
-    os.chdir(modelstipo)
-    wget("https://huggingface.co/KBlueLeaf/DanTagGen-beta/resolve/main/ggml-model-Q8_0.gguf")
 
     # Limpiar y mensaje final
     os.system("clear" if os.name != "nt" else "cls")
