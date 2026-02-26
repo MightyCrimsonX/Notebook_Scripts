@@ -1,4 +1,5 @@
 import os
+base_path = "/kaggle/working/"
 BASE_MODELS_DIR = "/kaggle/working/SwarmUI/Models/Stable-Diffusion"
 LORA_DIR = "/kaggle/working/SwarmUI/Models/Lora"
 VAE_DIR = "/kaggle/working/SwarmUI/Models/VAE"
@@ -20,3 +21,5 @@ os.makedirs(DIFFUSION_DIR, exist_ok=True)
 os.makedirs(TEXT_ENCODER_DIR, exist_ok=True)
 os.makedirs(UNET_DIR, exist_ok=True)
 os.makedirs(CLIP_DIR, exist_ok=True)
+
+os.environ["HOME"] = base_path
