@@ -252,7 +252,5 @@ def download(line):
                         os.rename(os.path.join(dest, f), os.path.join(dest, pretty))
                         break
 
-    display(HTML("<br><h3 style='color:lightgreen;'>✅ ¡Todas las descargas solicitadas han finalizado!</h3>"))
-
 # Registramos la línea mágica al importar el módulo
 get_ipython().register_magic_function(download, magic_kind='line')
