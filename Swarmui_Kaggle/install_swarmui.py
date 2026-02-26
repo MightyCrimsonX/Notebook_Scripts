@@ -157,72 +157,68 @@ def main() -> None:
     
     _run("pip install -q requests")
 
+
+    HOME = "/kaggle/working"
+    BASE_MODELS_DIR = "/kaggle/working/SwarmUI/Models/Stable-Diffusion"
+    LORA_DIR = "/kaggle/working/SwarmUI/Models/Lora"
+    VAE_DIR = "/kaggle/working/SwarmUI/Models/VAE"
+    UPSCALER_DIR = "/kaggle/working/SwarmUI/Models/upscale_models"
+    CONTROLNET_DIR = "/kaggle/working/SwarmUI/Models/controlnet"
+    DIFFUSION_DIR = "/kaggle/working/SwarmUI/Models/diffusion_models"
+    TEXT_ENCODER_DIR = "/kaggle/working/SwarmUI/Models/text_encoders"
+    UNET_DIR = "/kaggle/working/SwarmUI/Models/unet"
+    CLIP_DIR = "/kaggle/working/SwarmUI/Models/clip"
+    COMFY_EXT_DIR = "/kaggle/working/SwarmUI/dlbackend/ComfyUI/custom_nodes"
+    TMP_MODELS= "/tmp/models"
+    TMP_LORAS = "/tmp/loras"
+    TMP_VAE = "/tmp/vae"
+    TMP_CONTROLNET = "/tmp/controlnet"
+    TMP_DIFFUSION = "/tmp/diffusion_models"
+    TMP_TEXT_ENCODERS = "/tmp/text_encoders"
+
+    # Asegurar que las carpetas existan
+    os.makedirs(HOME, exist_ok=True)
+    os.makedirs(BASE_MODELS_DIR, exist_ok=True)
+    os.makedirs(LORA_DIR, exist_ok=True)
+    os.makedirs(VAE_DIR, exist_ok=True)
+    os.makedirs(UPSCALER_DIR, exist_ok=True)
+    os.makedirs(CONTROLNET_DIR, exist_ok=True)
+    os.makedirs(DIFFUSION_DIR, exist_ok=True)
+    os.makedirs(TEXT_ENCODER_DIR, exist_ok=True)
+    os.makedirs(UNET_DIR, exist_ok=True)
+    os.makedirs(CLIP_DIR, exist_ok=True)
+    _run("rm -rf /kaggle/working/tmp ~/tmp")
+    _run("ln -vs /tmp ~/tmp")
+
+    _run("rm -rf /kaggle/working/SwarmUI/Models/Stable-Diffusion/tmp_models")
+    _run("mkdir -p /tmp/models")
+    _run("ln -vs /tmp/models /kaggle/working/SwarmUI/Models/Stable-Diffusion/tmp_models")
+
+    _run("rm -rf /kaggle/working/SwarmUI/Models/Lora/tmp_loras")
+    _run("mkdir -p /tmp/loras")
+    _run("ln -vs /tmp/loras /kaggle/working/SwarmUI/Models/Lora/tmp_loras")
+
+    _run("rm -rf /kaggle/working/SwarmUI/Models/VAE")
+    _run("mkdir -p /tmp/vae")
+    _run("ln -vs /tmp/vae /kaggle/working/SwarmUI/Models/VAE/tmp_vae")
+
+    _run("rm -rf /kaggle/working/SwarmUI/Models/controlnet")
+    _run("mkdir -p /tmp/controlnet")
+    _run("ln -vs /tmp/controlnet /kaggle/working/SwarmUI/Models/controlnet")
+
+    _run("rm -rf /kaggle/working/SwarmUI/Models/diffusion_models")
+    _run("mkdir -p /tmp/diffusion_models")
+    _run("ln -vs /tmp/diffusion_models /kaggle/working/SwarmUI/Models/diffusion_models")
+
+    _run("rm -rf /kaggle/working/SwarmUI/Models/text_encoders")
+    _run("mkdir -p /tmp/text_encoders")
+    _run("ln -vs /tmp/text_encoders /kaggle/working/SwarmUI/Models/text_encoders")
+
     # Limpiar y mensaje final
     os.system("clear" if os.name != "nt" else "cls")
     print("\n" + "=" * 50)
     print("🎉 Instalación completada")
     print("=" * 50)
-HOME = "/kaggle/working"
-BASE_MODELS_DIR = "/kaggle/working/SwarmUI/Models/Stable-Diffusion"
-LORA_DIR = "/kaggle/working/SwarmUI/Models/Lora"
-VAE_DIR = "/kaggle/working/SwarmUI/Models/VAE"
-UPSCALER_DIR = "/kaggle/working/SwarmUI/Models/upscale_models"
-CONTROLNET_DIR = "/kaggle/working/SwarmUI/Models/controlnet"
-DIFFUSION_DIR = "/kaggle/working/SwarmUI/Models/diffusion_models"
-TEXT_ENCODER_DIR = "/kaggle/working/SwarmUI/Models/text_encoders"
-UNET_DIR = "/kaggle/working/SwarmUI/Models/unet"
-CLIP_DIR = "/kaggle/working/SwarmUI/Models/clip"
-COMFY_EXT_DIR = "/kaggle/working/SwarmUI/dlbackend/ComfyUI/custom_nodes"
-
-# Asegurar que las carpetas existan
-os.makedirs(HOME, exist_ok=True)
-os.makedirs(BASE_MODELS_DIR, exist_ok=True)
-os.makedirs(LORA_DIR, exist_ok=True)
-os.makedirs(VAE_DIR, exist_ok=True)
-os.makedirs(UPSCALER_DIR, exist_ok=True)
-os.makedirs(CONTROLNET_DIR, exist_ok=True)
-os.makedirs(DIFFUSION_DIR, exist_ok=True)
-os.makedirs(TEXT_ENCODER_DIR, exist_ok=True)
-os.makedirs(UNET_DIR, exist_ok=True)
-os.makedirs(CLIP_DIR, exist_ok=True)
-_run("rm -rf /kaggle/working/tmp ~/tmp")
-_run("ln -vs /tmp ~/tmp")
-
-_run("rm -rf /kaggle/working/SwarmUI/Models/Stable-Diffusion/tmp_models")
-_run("mkdir -p /tmp/models")
-_run("ln -vs /tmp/models /kaggle/working/SwarmUI/Models/Stable-Diffusion/tmp_models")
-
-_run("rm -rf /kaggle/working/SwarmUI/Models/Lora/tmp_loras")
-_run("mkdir -p /tmp/loras")
-_run("ln -vs /tmp/loras /kaggle/working/SwarmUI/Models/Lora/tmp_loras")
-
-_run("rm -rf /kaggle/working/SwarmUI/Models/VAE")
-_run("mkdir -p /tmp/vae")
-_run("ln -vs /tmp/vae /kaggle/working/SwarmUI/Models/VAE/tmp_vae")
-
-_run("rm -rf /kaggle/working/SwarmUI/Models/controlnet")
-_run("mkdir -p /tmp/controlnet")
-_run("ln -vs /tmp/controlnet /kaggle/working/SwarmUI/Models/controlnet")
-
-_run("rm -rf /kaggle/working/SwarmUI/Models/diffusion_models")
-_run("mkdir -p /tmp/diffusion_models")
-_run("ln -vs /tmp/diffusion_models /kaggle/working/SwarmUI/Models/diffusion_models")
-
-_run("rm -rf /kaggle/working/SwarmUI/Models/text_encoders")
-_run("mkdir -p /tmp/text_encoders")
-_run("ln -vs /tmp/text_encoders /kaggle/working/SwarmUI/Models/text_encoders")
-
-TMP_MODELS= "/tmp/models"
-TMP_LORAS = "/tmp/loras"
-TMP_VAE = "/tmp/vae"
-TMP_CONTROLNET = "/tmp/controlnet"
-TMP_DIFFUSION = "/tmp/diffusion_models"
-TMP_TEXT_ENCODERS = "/tmp/text_encoders"
-
-os.system("clear" if os.name != "nt" else "cls")
-print("\n" + "=" * 50)
-print("🎉 Instalación completada")
-print("=" * 50)
 
 if __name__ == "__main__":
     main()
