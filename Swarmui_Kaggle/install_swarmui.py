@@ -113,6 +113,8 @@ def main() -> None:
     os.chdir(ext_dir)
     clone("https://github.com/jtreminio/SwarmUI-PromptBuilderExtension.git")
     clone("https://github.com/yoinked-h/MaHiRon-SwarmUI.git")
+    clone("https://github.com/jtreminio/SwarmUI-Qwen-TTS.git")
+    clone("https://github.com/Hugs288/TipoForSwarmUI.git")
 
     # 8. SageAttention
     os.chdir(WORK_DIR)
@@ -218,6 +220,10 @@ def main() -> None:
     os.chdir(COMFY_EXT_DIR)
     clone("https://github.com/MightyCrimsonX/Euler-Smea-Dyn-Sampler-Comfyui.git")
     clone("https://github.com/mcmonkeyprojects/sd-dynamic-thresholding.git")
+    clone("https://github.com/KohakuBlueleaf/z-tipo-extension.git")
+
+    os.chdir(COMFY_EXT_DIR / "models")
+    wget("https://huggingface.co/KBlueLeaf/DanTagGen-beta/resolve/main/ggml-model-Q8_0.gguf")
 
     # Limpiar y mensaje final
     os.system("clear" if os.name != "nt" else "cls")
