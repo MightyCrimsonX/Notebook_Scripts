@@ -169,11 +169,21 @@ def download(line):
 
         # ---------- Google Drive (gdown) ----------
         if "drive.google.com" in url:
-            pretty = custom_name if custom_name else "Archivo de Google Drive (Gdown gestiona el nombre)"
+            is_folder = "/folders/" in url
+            tipo = "Carpeta" if is_folder else "Archivo"
+            
+            pretty = custom_name if custom_name else f"{tipo} de Google Drive (Gdown gestiona el nombre)"
             display(HTML(f"<hr><h3 style='color:yellow;'>🛸 Descargando (gdown): <code>{pretty}</code></h3>"
                          f"<h4 style='color:cyan;'>📁 Destino: <code>{dest}</code></h4>"))
             
-            cmd = ["gdown", "--fuzzy", url]
+            cmd = ["gdown"]
+            if is_folder:
+                cmd.append("--folder")
+            else:
+                cmd.append("--fuzzy")
+            
+            cmd.append(url)
+            
             # Si hay nombre custom, le damos la ruta exacta, si no, el directorio
             if custom_name:
                 cmd.extend(["-O", os.path.join(dest, custom_name)])
