@@ -23,3 +23,4 @@ os.makedirs(UNET_DIR, exist_ok=True)
 os.makedirs(CLIP_DIR, exist_ok=True)
 
 os.environ["HOME"] = base_path
+print("Todo Listo")
