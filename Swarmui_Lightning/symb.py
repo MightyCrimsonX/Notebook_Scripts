@@ -2,6 +2,27 @@
 # swarmui_tmp_links.py  –  solo enlaza carpetas temporales de SwarmUI
 import subprocess
 from pathlib import Path
+import os
+WORK_DIR = Path("/teamspace/studios/this_studio").resolve()
+SWARM_DIR = WORK_DIR / "SwarmUI"
+COMFY_DIR = SWARM_DIR / "dlbackend" / "ComfyUI"
+HOME = "/teamspace/studios/this_studio"
+BASE_MODELS_DIR = "/teamspace/studios/this_studio/SwarmUI/Models/Stable-Diffusion"
+LORA_DIR = "/teamspace/studios/this_studio/SwarmUI/Models/Lora"
+VAE_DIR = "/teamspace/studios/this_studio/SwarmUI/Models/VAE"
+UPSCALER_DIR = "/teamspace/studios/this_studio/SwarmUI/Models/upscale_models"
+CONTROLNET_DIR = "/teamspace/studios/this_studio/SwarmUI/Models/controlnet"
+DIFFUSION_DIR = "/teamspace/studios/this_studio/SwarmUI/Models/diffusion_models"
+TEXT_ENCODER_DIR = "/teamspace/studios/this_studio/SwarmUI/Models/text_encoders"
+UNET_DIR = "/teamspace/studios/this_studio/SwarmUI/Models/unet"
+CLIP_DIR = "/teamspace/studios/this_studio/SwarmUI/Models/clip"
+COMFY_EXT_DIR = "/teamspace/studios/this_studio/SwarmUI/dlbackend/ComfyUI/custom_nodes"
+TMP_MODELS= "/tmp/models"
+TMP_LORAS = "/tmp/lora"
+TMP_VAE = "/tmp/vae"
+TMP_CONTROLNET = "/tmp/controlnet"
+TMP_DIFFUSION = "/tmp/diffusion_models"
+TMP_TEXT_ENCODERS = "/tmp/text_encoders"
 
 def _run(cmd: str) -> None:
     print(f"+ {cmd}")
