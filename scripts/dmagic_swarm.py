@@ -104,19 +104,31 @@ def generar_metadata_civitai(url, dest_path, pretty_name):
                 m_data = m_resp.json()
 
         # Procesar imagen a base64
+        # Procesar imagen a base64 (Evitando videos para SwarmUI)
         thumbnail_b64 = ""
         images = v_data.get("images", [])
-        if images:
-            img_url = images[0].get("url")
-            if img_url:
-                try:
-                    i_resp = requests.get(img_url, timeout=10)
-                    if i_resp.status_code == 200:
-                        content_type = i_resp.headers.get('content-type', 'image/jpeg')
-                        b64_str = base64.b64encode(i_resp.content).decode('utf-8')
-                        thumbnail_b64 = f"data:{content_type};base64,{b64_str}"
-                except Exception:
-                    pass
+        
+        for img in images:
+            img_url = img.get("url")
+            if not img_url:
+                continue
+                
+            # Detectar si el archivo es un video mediante la API de Civitai o su extensión
+            is_video = img.get("type") == "video" or img_url.lower().endswith(('.mp4', '.webm'))
+            
+            if is_video:
+                # Si es un video, lo saltamos para evitar que SwarmUI colapse
+                continue
+                
+            try:
+                i_resp = requests.get(img_url, timeout=10)
+                if i_resp.status_code == 200:
+                    content_type = i_resp.headers.get('content-type', 'image/jpeg')
+                    b64_str = base64.b64encode(i_resp.content).decode('utf-8')
+                    thumbnail_b64 = f"data:{content_type};base64,{b64_str}"
+                    break # Salimos del loop apenas procesamos la primera imagen estática exitosamente
+            except Exception:
+                continue # Si la descarga falla, intentamos con la siguiente imagen de la lista
 
         # Construir diccionario de Swarm
         tags = ", ".join(m_data.get("tags", []))
