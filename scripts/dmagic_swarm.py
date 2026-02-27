@@ -13,6 +13,8 @@ Uso:
 from IPython import get_ipython
 from IPython.core.magic import register_line_magic
 from IPython.display import HTML, display, clear_output
+from PIL import Image
+from io import BytesIO
 import ipywidgets as widgets
 import os
 import subprocess
@@ -105,6 +107,7 @@ def generar_metadata_civitai(url, dest_path, pretty_name):
 
         # Procesar imagen a base64
         # Procesar imagen a base64 (Evitando videos para SwarmUI)
+        # Procesar imagen a base64 (Evitando videos y comprimiendo para SwarmUI)
         thumbnail_b64 = ""
         images = v_data.get("images", [])
         
@@ -113,22 +116,36 @@ def generar_metadata_civitai(url, dest_path, pretty_name):
             if not img_url:
                 continue
                 
-            # Detectar si el archivo es un video mediante la API de Civitai o su extensión
+            # Detectar si el archivo es un video
             is_video = img.get("type") == "video" or img_url.lower().endswith(('.mp4', '.webm'))
             
             if is_video:
-                # Si es un video, lo saltamos para evitar que SwarmUI colapse
                 continue
                 
             try:
                 i_resp = requests.get(img_url, timeout=10)
                 if i_resp.status_code == 200:
-                    content_type = i_resp.headers.get('content-type', 'image/jpeg')
-                    b64_str = base64.b64encode(i_resp.content).decode('utf-8')
-                    thumbnail_b64 = f"data:{content_type};base64,{b64_str}"
-                    break # Salimos del loop apenas procesamos la primera imagen estática exitosamente
-            except Exception:
-                continue # Si la descarga falla, intentamos con la siguiente imagen de la lista
+                    # Abrir la imagen en memoria con Pillow
+                    img_data = Image.open(BytesIO(i_resp.content))
+                    
+                    # Convertir a RGB (elimina transparencias/canal alfa para guardar como JPEG sin error)
+                    if img_data.mode != 'RGB':
+                        img_data = img_data.convert('RGB')
+                        
+                    # Redimensionar manteniendo la proporción (máximo 512x512)
+                    img_data.thumbnail((512, 512), Image.Resampling.LANCZOS)
+                    
+                    # Guardar la imagen optimizada en un buffer como JPEG
+                    buffer = BytesIO()
+                    img_data.save(buffer, format="JPEG", quality=80)
+                    
+                    # Convertir el buffer optimizado a base64
+                    b64_str = base64.b64encode(buffer.getvalue()).decode('utf-8')
+                    thumbnail_b64 = f"data:image/jpeg;base64,{b64_str}"
+                    break # Salimos del loop apenas procesamos la primera imagen
+            except Exception as e:
+                # Si hay algún error procesando esta imagen, pasamos a la siguiente
+                continue
 
         # Construir diccionario de Swarm
         tags = ", ".join(m_data.get("tags", []))
