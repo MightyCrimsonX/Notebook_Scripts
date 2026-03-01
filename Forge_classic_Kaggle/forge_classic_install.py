@@ -46,18 +46,31 @@ def main() -> None:
     if not FORGE_DIR.exists():
         run("git clone https://github.com/MightyCrimsonX/sd-webui-forge-classic.git")
 
-    # 2. Descargar ui-config.json y styles.csv
+
+    # 2. Descargar ui-config.json, styles.csv y scripts
     wget(
         "https://huggingface.co/datasets/WhiteAiZ/sd-webui-forge-classic/resolve/main/ui-config.json",
         output=str(FORGE_DIR / "ui-config.json"),
         quiet=True,
-        show_progress=True
+        show_progress=False
     )
     wget(
         "https://huggingface.co/datasets/WhiteAiZ/sd-webui-forge-classic/resolve/main/styles.csv",
         output=str(FORGE_DIR / "styles.csv"),
         quiet=True,
-        show_progress=True
+        show_progress=False
+    )
+    wget(
+        "https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/scripts/download_magic.py",
+        output=str(WORK_DIR / "download_magic.py"),
+        quiet=True,
+        show_progress=False
+    )
+    wget(
+        "https://huggingface.co/datasets/Mightys/Notebook_Scripts/resolve/main/libmimalloc.so.2.1",
+        output=str(WORK_DIR / "libmimalloc.so.2.1"),
+        quiet=True,
+        show_progress=False
     )
 
     # 3. Extensiones
