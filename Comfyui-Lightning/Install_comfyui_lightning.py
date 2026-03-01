@@ -37,6 +37,10 @@ def clone(repo: str, cwd: Path | None = None) -> None:
     """Clona un repositorio git."""
     _run(f"git clone {repo}", cwd=cwd)
 
+def pull(repo_dir: Path) -> None:
+    """Hace git pull en un repositorio existente."""
+    _run("git pull", cwd=repo_dir)
+
 def main() -> None:
     # 1. Sistema: .NET, aria2, ffmpeg
     _run("sudo apt-get update")
@@ -58,6 +62,7 @@ def main() -> None:
     # 3. Clonar ComfyUI y descargas auxiliares
     if not COMFY_DIR.exists():
         clone("https://github.com/comfyanonymous/ComfyUI.git")
+        _run("git pull", cwd=COMFY_DIR)
 
         wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/Comfyui-Lightning/gestor_comfy.py",
          quiet=True)
