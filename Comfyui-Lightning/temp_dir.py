@@ -4,6 +4,7 @@ import subprocess
 import os
 from pathlib import Path
 HOME = "/teamspace/studios/this_studio"
+VAE_DIR = "/teamspace/studios/this_studio/ComfyUI/models/vae"
 TMP_MODELS= "/tmp/models"
 TMP_LORAS = "/tmp/lora"
 TMP_VAE = "/tmp/vae"
