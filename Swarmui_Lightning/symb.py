@@ -55,6 +55,9 @@ def enlaces_tmp_swarm() -> None:
         "rm -rf /teamspace/studios/this_studio/SwarmUI/Models/controlnet",
         "mkdir -p /tmp/controlnet",
         "ln -vs /tmp/controlnet /teamspace/studios/this_studio/SwarmUI/Models/controlnet",
+        "rm -rf /teamspace/studios/this_studio/SwarmUI/dlbackend/ComfyUI/models/kgen",
+        "mkdir -p /tmp/kgen",
+        "ln -vs /tmp/kgen /teamspace/studios/this_studio/SwarmUI/dlbackend/ComfyUI/models/kgen",
     ]
     for c in cmds:
         _run(c)

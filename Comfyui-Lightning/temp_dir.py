@@ -1,7 +1,18 @@
 #!/usr/bin/env python3
 # temp_dir.py  –  enlaza carpetas temporales de ComfyUI a /tmp
 import subprocess
+import os
 from pathlib import Path
+HOME = "/teamspace/studios/this_studio"
+TMP_MODELS= "/tmp/models"
+TMP_LORAS = "/tmp/lora"
+TMP_VAE = "/tmp/vae"
+TMP_CONTROLNET = "/tmp/controlnet"
+TMP_DIFFUSION = "/tmp/diffusion_models"
+TMP_TEXT_ENCODERS = "/tmp/text_encoders"
+TMP_UNET = "/tmp/unet"
+TMP_KGEN = "/tmp/kgen"
+TMP_CONTROLNET = "/tmp/controlnet"
 
 def _run(cmd: str) -> None:
     print(f"+ {cmd}")
@@ -31,6 +42,9 @@ def enlaces_tmp_comfy() -> None:
         "rm -rf /teamspace/studios/this_studio/ComfyUI/models/controlnet",
         "mkdir -p /tmp/controlnet",
         "ln -vs /tmp/controlnet /teamspace/studios/this_studio/ComfyUI/models/controlnet",
+        "rm -rf /teamspace/studios/this_studio/ComfyUI/models/kgen",
+        "mkdir -p /tmp/kgen",
+        "ln -vs /tmp/kgen /teamspace/studios/this_studio/ComfyUI/models/kgen",
     ]
     for c in cmds:
         _run(c)
