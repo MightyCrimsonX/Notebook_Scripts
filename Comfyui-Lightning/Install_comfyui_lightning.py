@@ -64,7 +64,7 @@ def main() -> None:
         clone("https://github.com/comfyanonymous/ComfyUI.git")
         _run("git pull", cwd=COMFY_DIR)
 
-        wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/Comfyui-Lightning/gestor_comfy.py",
+    wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/Comfyui-Lightning/gestor_comfy.py",
          quiet=True)
     wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/scripts/download_magic.py",
          quiet=True)
