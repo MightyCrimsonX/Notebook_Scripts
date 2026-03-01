@@ -12,7 +12,7 @@ from pathlib import Path
 BASE_DIR = Path("/kaggle/working").resolve()
 FORGE_DIR = BASE_DIR / "sd-webui-forge-classic"
 EXT_DIR = FORGE_DIR / "extensions"
-TMP_DIR = BASE_DIR / "tmp"
+TMP_DIR = "/tmp"
 TMP_MODELS = TMP_DIR / "tmp_models"
 TMP_LORAS = TMP_DIR / "tmp_lora"
 TMP_CONTROLNET = TMP_DIR / "tmp_controlnet"
