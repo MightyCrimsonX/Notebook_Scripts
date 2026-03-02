@@ -70,7 +70,8 @@ def main() -> None:
     # === NUEVO: Creación de entorno virtual e instalación de paquetes con uv ===
     # Ejecutamos esto DENTRO de FORGE_DIR para que encuentre el requirements.txt
     _run("uv venv .venv --python /usr/bin/python3.11 --clear --seed", cwd=FORGE_DIR)
-    _run("uv pip install --python .venv torch==2.9.1 torchvision==0.24.1 xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/cu128 --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python .venv --upgrade pip setuptools wheel", cwd=FORGE_DIR)
+    _run("uv pip install --python .venv mediapipe==0.10.32 --no-progress", cwd=FORGE_DIR)
     _run("uv pip install --python .venv clip gradio==3.41.2 ultralytics==8.3.216 insightface send2trash ZipUnicode bs4 pysocks gdown aria2 pv lz4 --no-progress", cwd=FORGE_DIR)
     _run("uv pip install --python .venv -r requirements.txt --no-progress", cwd=FORGE_DIR)
     
