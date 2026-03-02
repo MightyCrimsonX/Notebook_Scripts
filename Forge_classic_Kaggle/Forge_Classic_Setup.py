@@ -13,9 +13,9 @@ BASE_DIR = Path("/kaggle/working").resolve()
 FORGE_DIR = BASE_DIR / "sd-webui-forge-classic"
 EXT_DIR = FORGE_DIR / "extensions"
 TMP_DIR = Path("/tmp")
-TMP_MODELS = TMP_DIR / "tmp_models"
-TMP_LORAS = TMP_DIR / "tmp_lora"
-TMP_CONTROLNET = TMP_DIR / "tmp_controlnet"
+TMP_MODELS = TMP_DIR / "models"
+TMP_LORAS = TMP_DIR / "lora"
+TMP_CONTROLNET = TMP_DIR / "controlnet"
 
 def _run(cmd: str, cwd: Path | None = None) -> None:
     """Ejecuta un comando shell."""
