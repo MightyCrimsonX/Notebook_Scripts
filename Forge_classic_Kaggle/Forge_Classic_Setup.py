@@ -11,6 +11,11 @@ from pathlib import Path
 
 BASE_DIR = Path("/kaggle/working").resolve()
 FORGE_DIR = BASE_DIR / "sd-webui-forge-classic"
+MODELS_DIR = FORGE_DIR / "models"
+VAE_DIR = MODELS_DIR / "VAE"
+UPSCALERS_DIR = MODELS_DIR / "ESRGAN"
+ADETAILER_DIR = MODELS_DIR / "adetailer"
+EMBEDDINGS_DIR = MODELS_DIR / "embeddings"
 EXT_DIR = FORGE_DIR / "extensions"
 TMP_DIR = Path("/tmp")
 TMP_MODELS = TMP_DIR / "models"
@@ -150,5 +155,8 @@ def main() -> None:
     print("🎉 Instalación completada")
     print("=" * 50 + "\n")
 
+os.makedirs(ADETAILER_DIR, exist_ok=True)
+os.makedirs(UPSCALERS_DIR, exist_ok=True)
+os.makedirs(EMBEDDINGS_DIR, exist_ok=True)
 if __name__ == "__main__":
     main()
