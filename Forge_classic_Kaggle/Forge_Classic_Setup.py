@@ -71,7 +71,7 @@ def main() -> None:
     # Ejecutamos esto DENTRO de FORGE_DIR para que encuentre el requirements.txt
     _run("uv venv .venv --python /usr/bin/python3.11 --clear --seed", cwd=FORGE_DIR)
     _run("uv pip install --python .venv --upgrade pip setuptools wheel", cwd=FORGE_DIR)
-    #_run("uv pip install --python .venv mediapipe==0.10.32 --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python .venv mediapipe==0.10.32 --no-progress", cwd=FORGE_DIR)
     _run("uv pip install --python .venv clip gradio==3.41.2 ultralytics==8.3.216 insightface send2trash ZipUnicode bs4 pysocks gdown aria2 pv lz4 --no-progress", cwd=FORGE_DIR)
     _run("uv pip install --python .venv -r requirements.txt --no-progress", cwd=FORGE_DIR)
     
@@ -125,7 +125,7 @@ def main() -> None:
     
     for repo, depth in repos:
         clone(repo, cwd=EXT_DIR, depth=depth)
-
+    _run("uv pip install --python .venv numpy==1.26.4 --no-progress", cwd=FORGE_DIR)
     # 5. Sistema + aria2
     _run("uv pip install --python .venv gdown", cwd=FORGE_DIR) # Cambiado a uv pip para instalarlo en el entorno virtual
     
