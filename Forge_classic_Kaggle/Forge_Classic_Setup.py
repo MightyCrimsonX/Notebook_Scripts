@@ -19,6 +19,9 @@ TMP_DIR = Path("/tmp")
 TMP_MODELS = TMP_DIR / "models"
 TMP_LORAS = TMP_DIR / "lora"
 TMP_CONTROLNET = TMP_DIR / "controlnet"
+UPSCALERS_DIR = MODELS_DIR / "ESRGAN"
+ADETAILER_DIR = MODELS_DIR / "adetailer"
+EMBEDDINGS_DIR = MODELS_DIR / "embeddings"
 
 def _run(cmd: str, cwd: Path | None = None) -> None:
     """Ejecuta un comando shell."""
@@ -145,6 +148,9 @@ def main() -> None:
     _run("mkdir -p /tmp/controlnet")
     _run("ln -vs /tmp/controlnet /kaggle/working/sd-webui-forge-classic/models/ControlNet")
     print("\n✅ Enlaces simbólicos creados.")
+    os.makedirs(ADETAILER_DIR, exist_ok=True)
+    os.makedirs(UPSCALERS_DIR, exist_ok=True)
+    os.makedirs(EMBEDDINGS_DIR, exist_ok=True)
 
     # 7. Limpiar output y mostrar mensaje
     os.system("clear" if os.name != "nt" else "cls")
@@ -152,11 +158,7 @@ def main() -> None:
     print("🎉 Instalación completada")
     print("=" * 50 + "\n")
 
-UPSCALERS_DIR = MODELS_DIR / "ESRGAN"
-ADETAILER_DIR = MODELS_DIR / "adetailer"
-EMBEDDINGS_DIR = MODELS_DIR / "embeddings"
-os.makedirs(ADETAILER_DIR, exist_ok=True)
-os.makedirs(UPSCALERS_DIR, exist_ok=True)
-os.makedirs(EMBEDDINGS_DIR, exist_ok=True)
+
+
 if __name__ == "__main__":
     main()
