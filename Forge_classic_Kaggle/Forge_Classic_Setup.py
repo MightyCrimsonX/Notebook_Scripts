@@ -60,7 +60,7 @@ def main() -> None:
 
     # 2. Clonar forge-classic
     if not FORGE_DIR.exists():
-        _run("git clone https://github.com/MightyCrimsonX/sd-webui-forge-classic.git", cwd=BASE_DIR)
+        _run("git clone -b classic https://github.com/MightyCrimsonX/sd-webui-forge-classic.git", cwd=BASE_DIR)
     
     # === NUEVO: Creación de entorno virtual e instalación de paquetes con uv ===
     # Ejecutamos esto DENTRO de FORGE_DIR para que encuentre el requirements.txt
