@@ -73,6 +73,7 @@ def main() -> None:
     _run("uv pip install --python .venv --upgrade pip setuptools wheel", cwd=FORGE_DIR)
     _run("uv pip install --python .venv mediapipe==0.10.32 --no-progress", cwd=FORGE_DIR)
     _run("uv pip install --python .venv addict fvcore onnxruntime svglib yapf handrefinerportable depth_anything depth_anything_v2 --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python .venv https://github.com/huchenlei/HandRefinerPortable/releases/download/v1.0.1/handrefinerportable-2024.2.12.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
     _run("uv pip install --python .venv numpy==1.26.4 --reinstall --no-progress", cwd=FORGE_DIR)
     _run("uv pip install --python .venv clip gradio==3.41.2 ultralytics==8.3.216 insightface send2trash ZipUnicode bs4 pysocks gdown aria2 pv lz4 --no-progress", cwd=FORGE_DIR)
     _run("uv pip install --python .venv -r requirements.txt --no-progress", cwd=FORGE_DIR)
