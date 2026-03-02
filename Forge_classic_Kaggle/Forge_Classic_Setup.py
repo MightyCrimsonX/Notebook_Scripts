@@ -7,6 +7,7 @@ incluyendo la configuración de uv y el entorno virtual en Python 3.11.
 
 import os
 import subprocess
+import shutil
 from pathlib import Path
 
 BASE_DIR = Path("/kaggle/working").resolve()
@@ -64,7 +65,7 @@ def main() -> None:
     os.environ['UV_LINK_MODE'] = 'copy'
 
     # 2. Clonar forge-classic
-    os.rmdir(FORGE_DIR, ignore_errors=True)
+    shutil.rmtree(FORGE_DIR, ignore_errors=True)
     _run("git clone -b classic https://github.com/Haoming02/sd-webui-forge-classic.git", cwd=BASE_DIR)
     # === NUEVO: Creación de entorno virtual e instalación de paquetes con uv ===
     # Ejecutamos esto DENTRO de FORGE_DIR para que encuentre el requirements.txt
