@@ -111,7 +111,6 @@ def main() -> None:
         ("https://github.com/pamparamm/sd-perturbed-attention", None),
         ("https://github.com/gutris1/sd-image-encryption", None),
         ("https://github.com/yankooliveira/sd-webui-photopea-embed.git", None),
-        ("https://github.com/gutris1/sd-hub", 1),
         ("https://github.com/uorufu/stable-diffusion-webui-wildcards-adetailer.git", 1),
         ("https://github.com/Haoming02/sd-forge-couple", 1),
         ("https://github.com/etherealxx/batchlinks-webui", None),
