@@ -76,6 +76,7 @@ def main() -> None:
     _run("uv pip install --python .venv -r requirements.txt --no-progress", cwd=FORGE_DIR)
     
     # Descargar e instalar sageattention
+    _run("uv pip install --python .venv torch==2.9.1 torchvision==0.24.1 xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/cu128 --no-progress", cwd=FORGE_DIR)
     sage_whl = "sageattention-2.1.2-cp311-cp311-linux_x86_64.whl"
     wget(f"https://huggingface.co/datasets/WhiteAiZ/T4_SageAttention2_For_Google_Colab/resolve/main/python%203.11/{sage_whl}", output=str(FORGE_DIR / sage_whl))
     _run(f"uv pip install --python .venv {sage_whl}", cwd=FORGE_DIR)
