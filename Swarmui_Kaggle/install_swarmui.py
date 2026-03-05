@@ -103,6 +103,7 @@ def main() -> None:
 
     # 6. Dependencias de ComfyUI
     os.chdir(COMFY_DIR)
+    _run("uv pip install comfy-aimdo==0.2.8 --no-progress")
     _run("uv pip install -r requirements.txt --no-progress")
     _run("uv pip install --upgrade pip diffusers transformers --no-progress")
     _run("uv pip install -U transformers peft --no-progress")
