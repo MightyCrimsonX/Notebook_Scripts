@@ -3,9 +3,10 @@
 Mágica %download para IPython / Jupyter / Colab.
 Lee el token de CivitAI desde ~/.civitai_token.pkl (pickle)
 Incluye barra de progreso interactiva, renombrado con -o y autogeneración de metadata .swarm.json
+Resuelve redirecciones de Civitai, captura errores y evita conflictos de headers S3.
 
 Uso:
-    import download_magic
+    import dmagic_swarm
     %download https://civitai.com/api/download/models/..., https://huggingface.co/...
     %download https://drive.google.com/file/d/123.../view -o MiModelo.safetensors
 """
@@ -36,7 +37,7 @@ if TOKEN_FILE.exists():
 # ---------------------------------------------
 
 def ejecutar_con_progreso(cmd, is_gdown=False):
-    """Ejecuta el comando leyendo la salida para animar la barra de progreso."""
+    """Ejecuta el comando leyendo la salida para animar la barra de progreso y captura errores."""
     progress_bar = widgets.IntProgress(
         value=0, min=0, max=100, 
         description='Progreso:', 
@@ -56,7 +57,15 @@ def ejecutar_con_progreso(cmd, is_gdown=False):
         universal_newlines=True
     )
     
+    log_salida = []
+    
     for line in process.stdout:
+        line_clean = line.strip()
+        if line_clean:
+            log_salida.append(line_clean)
+            if len(log_salida) > 20:
+                log_salida.pop(0)
+
         if not is_gdown:
             match_pct = re.search(r'\((\d+)%\)', line)
             if match_pct:
@@ -72,9 +81,24 @@ def ejecutar_con_progreso(cmd, is_gdown=False):
                 status_label.value = "Descargando con gdown..."
 
     process.wait()
-    progress_bar.value = 100
-    progress_bar.bar_style = 'success'
-    status_label.value = "¡Descarga de este archivo completada! ✅"
+    
+    if process.returncode != 0:
+        progress_bar.bar_style = 'danger'
+        status_label.value = f"❌ Error en la descarga (Código de error: {process.returncode})"
+        
+        error_details = "<br>".join(log_salida)
+        display(HTML(f"""
+        <div style='color:#a94442; background-color:#f2dede; border-color:#ebccd1; padding:10px; border-radius:5px; margin-top:5px; font-family:monospace; font-size:12px;'>
+            <b>Detalles del error (últimas líneas del log):</b><br>
+            {error_details}
+        </div>
+        """))
+        return False
+    else:
+        progress_bar.value = 100
+        progress_bar.bar_style = 'success'
+        status_label.value = "¡Descarga de este archivo completada! ✅"
+        return True
 
 def generar_metadata_civitai(url, dest_path, pretty_name):
     """Descarga información del modelo desde la API de Civitai y crea el .swarm.json"""
@@ -105,9 +129,6 @@ def generar_metadata_civitai(url, dest_path, pretty_name):
             if m_resp.status_code == 200:
                 m_data = m_resp.json()
 
-        # Procesar imagen a base64
-        # Procesar imagen a base64 (Evitando videos para SwarmUI)
-        # Procesar imagen a base64 (Evitando videos y comprimiendo para SwarmUI)
         thumbnail_b64 = ""
         images = v_data.get("images", [])
         
@@ -116,7 +137,6 @@ def generar_metadata_civitai(url, dest_path, pretty_name):
             if not img_url:
                 continue
                 
-            # Detectar si el archivo es un video
             is_video = img.get("type") == "video" or img_url.lower().endswith(('.mp4', '.webm'))
             
             if is_video:
@@ -125,26 +145,20 @@ def generar_metadata_civitai(url, dest_path, pretty_name):
             try:
                 i_resp = requests.get(img_url, timeout=10)
                 if i_resp.status_code == 200:
-                    # Abrir la imagen en memoria con Pillow
                     img_data = Image.open(BytesIO(i_resp.content))
                     
-                    # Convertir a RGB (elimina transparencias/canal alfa para guardar como JPEG sin error)
                     if img_data.mode != 'RGB':
                         img_data = img_data.convert('RGB')
                         
-                    # Redimensionar manteniendo la proporción (máximo 512x512)
                     img_data.thumbnail((512, 512), Image.Resampling.LANCZOS)
                     
-                    # Guardar la imagen optimizada en un buffer como JPEG
                     buffer = BytesIO()
                     img_data.save(buffer, format="JPEG", quality=80)
                     
-                    # Convertir el buffer optimizado a base64
                     b64_str = base64.b64encode(buffer.getvalue()).decode('utf-8')
                     thumbnail_b64 = f"data:image/jpeg;base64,{b64_str}"
-                    break # Salimos del loop apenas procesamos la primera imagen
+                    break 
             except Exception as e:
-                # Si hay algún error procesando esta imagen, pasamos a la siguiente
                 continue
 
         # Construir diccionario de Swarm
@@ -167,7 +181,6 @@ def generar_metadata_civitai(url, dest_path, pretty_name):
             "modelspec.usage_hint": v_data.get("baseModel", "")
         }
 
-        # Guardar el JSON
         base_name = os.path.splitext(pretty_name)[0]
         if base_name == "Desconocido":
             return
@@ -188,14 +201,11 @@ def download(line):
     """
     %download url1 [-o nombre1.ext], url2, ...
     Muestra solo el nombre real y respeta la carpeta actual (%cd).
-    Auto-detecta enlaces de Drive para usar gdown y permite renombrado.
     """
     dest = os.getcwd()
-    # Separar por comas para soportar múltiples descargas en la misma línea
     items = [item.strip() for item in line.split(",") if item.strip()]
 
     for item in items:
-        # Extraer URL y el posible nombre personalizado usando regex para atrapar " -o "
         parts = re.split(r'\s+-o\s+', item, maxsplit=1)
         url = parts[0].strip()
         custom_name = parts[1].strip() if len(parts) > 1 else None
@@ -205,45 +215,43 @@ def download(line):
             is_folder = "/folders/" in url
             tipo = "Carpeta" if is_folder else "Archivo"
             
-            pretty = custom_name if custom_name else f"{tipo} de Google Drive (Gdown gestiona el nombre)"
+            pretty = custom_name if custom_name else f"{tipo} de Google Drive"
             display(HTML(f"<hr><h3 style='color:yellow;'>🛸 Descargando (gdown): <code>{pretty}</code></h3>"
                          f"<h4 style='color:cyan;'>📁 Destino: <code>{dest}</code></h4>"))
             
             cmd = ["gdown"]
-            if is_folder:
-                cmd.append("--folder")
-            else:
-                cmd.append("--fuzzy")
+            if is_folder: cmd.append("--folder")
+            else: cmd.append("--fuzzy")
             
             cmd.append(url)
             
-            # Si hay nombre custom, le damos la ruta exacta, si no, el directorio
-            if custom_name:
-                cmd.extend(["-O", os.path.join(dest, custom_name)])
-            else:
-                cmd.extend(["-O", f"{dest}/"]) 
+            if custom_name: cmd.extend(["-O", os.path.join(dest, custom_name)])
+            else: cmd.extend(["-O", f"{dest}/"]) 
             
             ejecutar_con_progreso(cmd, is_gdown=True)
 
-        # ---------- CivitAI y CivitaiArchive (aria2) ----------
+        # ---------- CivitAI y CivitaiArchive (aria2 con preflight) ----------
         elif "civitai.com" in url or "civitaiarchive.com" in url:
-            if not token and "civitai.com" in url:
-                display(HTML("<h4 style='color:red;'>⚠️ Token de CivitAI no encontrado (algunos modelos pueden fallar).</h4>"))
-            
-            url_token = url
-            if token and ("civitai.com" in url or "civitaiarchive.com" in url):
-                url_token = f"{url}{'&' if '?' in url else '?'}token={token}"
+            user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            headers = {'User-Agent': user_agent}
+            if token:
+                headers['Authorization'] = f'Bearer {token}'
+            elif "civitai.com" in url:
+                display(HTML("<h4 style='color:orange;'>⚠️ Token de CivitAI no encontrado.</h4>"))
 
-            # Si el usuario mandó nombre manual, lo usamos. Si no, consultamos la API para saberlo.
-            if custom_name:
-                pretty = custom_name
-            else:
-                try:
-                    with requests.get(url_token, stream=True, timeout=5) as r:
+            final_url = url
+            pretty = custom_name
+            
+            try:
+                with requests.get(url, headers=headers, stream=True, allow_redirects=True, timeout=15) as r:
+                    final_url = r.url
+                    if not pretty:
                         cd = r.headers.get('Content-Disposition', '')
                         match = re.findall(r'filename[*]?=(?:UTF-8\'\')?["\']?([^"\';]+)["\']?', cd)
                         pretty = match[0] if match else url.split('/')[-1].split('?')[0]
-                except Exception:
+            except Exception as e:
+                display(HTML(f"<p style='color:orange;'>⚠️ Error en preflight: {e}.</p>"))
+                if not pretty:
                     pretty = url.split('/')[-1].split('?')[0]
 
             display(HTML(f"<hr><h3 style='color:yellow;'>📥 Descargando (aria2): <code>{pretty}</code></h3>"
@@ -252,20 +260,21 @@ def download(line):
             cmd = [
                 "aria2c", "--summary-interval=1",
                 "-c", "-x", "16", "-s", "16", "-k", "1M",
+                f"--header=User-Agent: {user_agent}",
                 "-d", dest
             ]
             
-            # Si hay nombre personalizado, usamos -o. Si no, usamos content-disposition
-            if custom_name:
-                cmd.extend(["-o", custom_name])
-            else:
-                cmd.append("--content-disposition")
+            # EL ARREGLO DEL ERROR 400 DE CLOUDFLARE/S3
+            if token and "X-Amz-Signature" not in final_url: 
+                cmd.append(f"--header=Authorization: Bearer {token}")
+            
+            if pretty: cmd.extend(["-o", pretty])
+            else: cmd.append("--content-disposition")
                 
-            cmd.append(url_token)
-            ejecutar_con_progreso(cmd, is_gdown=False)
-
-            # Generar metadata de Civitai al finalizar
-            if pretty and pretty != "Desconocido":
+            cmd.append(final_url)
+            
+            exito = ejecutar_con_progreso(cmd, is_gdown=False)
+            if exito and pretty and pretty != "Desconocido":
                 generar_metadata_civitai(url, dest, pretty)
 
         # ---------- HuggingFace / Otros (aria2) ----------
@@ -280,15 +289,12 @@ def download(line):
                 "-d", dest
             ]
             
-            if custom_name:
-                cmd.extend(["-o", custom_name])
-            else:
-                cmd.extend(["-o", pretty])
+            if custom_name: cmd.extend(["-o", custom_name])
+            else: cmd.extend(["-o", pretty])
                 
             cmd.append(url)
             ejecutar_con_progreso(cmd, is_gdown=False)
 
-            # Limpiar hashes de 64 caracteres típicos de HuggingFace si quedó suelto y no hay nombre custom
             if not custom_name and ("huggingface.co" in url):
                 for f in os.listdir(dest):
                     if re.fullmatch(r'[0-9a-f]{64}', f):
