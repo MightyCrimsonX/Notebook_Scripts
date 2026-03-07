@@ -179,7 +179,7 @@ Network:
 	#Maximum megabytes that can be sent as a single message from a client to the Swarm server.
 	#Set this lower to limit above, set this higher to allow very large file uploads.
 	#Server needs a restart for this to fully apply.
-	MaxNetworkRequestMegabytes: 200
+	MaxNetworkRequestMegabytes: 500
 #Settings related to Swarm server maintenance.
 Maintenance:
 	#If true, Swarm will check if there's any updates available during startup. If false, it will not check for updates.
