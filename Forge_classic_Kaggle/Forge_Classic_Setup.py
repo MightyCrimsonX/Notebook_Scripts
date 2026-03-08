@@ -57,7 +57,8 @@ def main() -> None:
     _run("sudo apt install aria2 -q")
     
     # === NUEVO: Instalación de dependencias para Python 3.11 y uv ===
-    _run("sudo apt install -y python3.11-dev python3.11-venv python3.11-distutils build-essential")
+    _run ("sudo add-apt-repository -y ppa:deadsnakes/ppa")
+    _run("sudo apt install -y python3.11")
     _run("curl -LsSf https://astral.sh/uv/install.sh | sh")
     
     # Configurar variables de entorno para uv
@@ -69,22 +70,21 @@ def main() -> None:
     _run("git clone -b classic https://github.com/Haoming02/sd-webui-forge-classic.git", cwd=BASE_DIR)
     # === NUEVO: Creación de entorno virtual e instalación de paquetes con uv ===
     # Ejecutamos esto DENTRO de FORGE_DIR para que encuentre el requirements.txt
-    _run("uv venv .venv --python /usr/bin/python3.11 --clear --seed", cwd=FORGE_DIR)
-    _run("uv pip install --python .venv --upgrade pip setuptools wheel", cwd=FORGE_DIR)
-    _run("uv pip install --python .venv mediapipe==0.10.32 --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python .venv https://github.com/huchenlei/Depth-Anything/releases/download/v1.0.0/depth_anything-2024.1.22.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python .venv https://github.com/huchenlei/HandRefinerPortable/releases/download/v1.0.1/handrefinerportable-2024.2.12.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python .venv https://github.com/MackinationsAi/UDAV2-ControlNet/releases/download/v1.0.0/depth_anything_v2-2024.7.1.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python .venv addict fvcore onnxruntime svglib yapf --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python .venv numpy==1.26.4 --reinstall --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python .venv clip gradio==3.41.2 ultralytics==8.3.216 insightface send2trash ZipUnicode bs4 pysocks gdown aria2 pv lz4 --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python .venv -r requirements.txt --no-progress", cwd=FORGE_DIR)
-    
+    _run("uv pip install --python /usr/bin/python3.11 --upgrade pip setuptools wheel", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.11 mediapipe==0.10.32 --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.11 https://github.com/huchenlei/Depth-Anything/releases/download/v1.0.0/depth_anything-2024.1.22.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.11 https://github.com/huchenlei/HandRefinerPortable/releases/download/v1.0.1/handrefinerportable-2024.2.12.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.11 https://github.com/MackinationsAi/UDAV2-ControlNet/releases/download/v1.0.0/depth_anything_v2-2024.7.1.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.11 addict fvcore onnxruntime svglib yapf --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.11 numpy==1.26.4 --reinstall --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.11 clip gradio==3.41.2 ultralytics==8.3.216 insightface send2trash ZipUnicode bs4 pysocks gdown aria2 pv lz4 --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.11 -r requirements.txt --no-progress", cwd=FORGE_DIR)
+
     # Descargar e instalar sageattention
-    _run("uv pip install --python .venv torch==2.9.1 torchvision==0.24.1 xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/cu128 --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.11 torch==2.9.1 torchvision==0.24.1 xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/cu128 --no-progress", cwd=FORGE_DIR)
     sage_whl = "sageattention-2.1.2-cp311-cp311-linux_x86_64.whl"
     wget(f"https://huggingface.co/datasets/WhiteAiZ/T4_SageAttention2_For_Google_Colab/resolve/main/python%203.11/{sage_whl}", output=str(FORGE_DIR / sage_whl))
-    _run(f"uv pip install --python .venv {sage_whl}", cwd=FORGE_DIR)
+    _run(f"uv pip install --python /usr/bin/python3.11 {sage_whl}", cwd=FORGE_DIR)
     # =================================================================
 
     # 3. Descargar ui-config.json, styles.csv y scripts
@@ -130,9 +130,9 @@ def main() -> None:
     
     for repo, depth in repos:
         clone(repo, cwd=EXT_DIR, depth=depth)
-    _run("uv pip install --python .venv numpy==1.26.4 --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.11 numpy==1.26.4 --no-progress", cwd=FORGE_DIR)
     # 5. Sistema + aria2
-    _run("uv pip install --python .venv gdown", cwd=FORGE_DIR) # Cambiado a uv pip para instalarlo en el entorno virtual
+    _run("uv pip install --python /usr/bin/python3.11 gdown", cwd=FORGE_DIR) # Cambiado a uv pip para instalarlo en el entorno virtual
     
     # 6. Enlaces simbólicos
     # tmp
