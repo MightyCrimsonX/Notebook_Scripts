@@ -58,7 +58,7 @@ def main() -> None:
     
     # === NUEVO: Instalación de dependencias para Python 3.11 y uv ===
     _run ("sudo add-apt-repository -y ppa:deadsnakes/ppa")
-    _run("sudo apt install -y python3.11")
+    _run("sudo apt install -y python3.11-dev")
     _run("curl -LsSf https://astral.sh/uv/install.sh | sh")
     
     # Configurar variables de entorno para uv
