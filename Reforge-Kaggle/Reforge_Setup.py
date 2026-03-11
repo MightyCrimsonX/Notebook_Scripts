@@ -105,6 +105,11 @@ def main() -> None:
         quiet=True
     )
     wget(
+        "https://huggingface.co/datasets/WhiteAiZ/sd-webui-forge-classic/resolve/main/ui-config.json",
+        output=str(FORGE_DIR / "ui-config.json"),
+        quiet=True
+    )
+    wget(
         "https://huggingface.co/datasets/WhiteAiZ/sd-webui-forge-classic/resolve/main/styles.csv",
         output=str(FORGE_DIR / "styles.csv"),
         quiet=True
