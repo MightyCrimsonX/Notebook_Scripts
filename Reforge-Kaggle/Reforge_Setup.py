@@ -105,8 +105,8 @@ def main() -> None:
         quiet=True
     )
     wget(
-        "https://huggingface.co/datasets/WhiteAiZ/sd-webui-forge-classic/resolve/main/ui-config.json",
-        output=str(FORGE_DIR / "ui-config.json"),
+        "https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/Dev/Reforge-Kaggle/configreforge.json",
+        output=str(FORGE_DIR / "config.json"),
         quiet=True
     )
     wget(
