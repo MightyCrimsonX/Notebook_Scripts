@@ -72,7 +72,6 @@ def main() -> None:
     # === NUEVO: Creación de entorno virtual e instalación de paquetes con uv ===
     # Ejecutamos esto DENTRO de FORGE_DIR para que encuentre el requirements.txt
     _run("uv pip install --python /usr/bin/python3.12 --upgrade pip setuptools wheel", cwd=FORGE_DIR)
-    _run("uv pip install -U --python /usr/bin/python3.12 accelerate peft diffusers --no-progress", cwd=FORGE_DIR)
     _run("uv pip install --python /usr/bin/python3.12 mediapipe==0.10.32 --no-progress", cwd=FORGE_DIR)
     _run("uv pip install --python /usr/bin/python3.12 https://github.com/huchenlei/Depth-Anything/releases/download/v1.0.0/depth_anything-2024.1.22.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
     _run("uv pip install --python /usr/bin/python3.12 https://github.com/huchenlei/HandRefinerPortable/releases/download/v1.0.1/handrefinerportable-2024.2.12.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
