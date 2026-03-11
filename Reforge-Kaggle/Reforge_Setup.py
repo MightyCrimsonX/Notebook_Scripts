@@ -69,6 +69,16 @@ def main() -> None:
     # 2. Clonar forge-classic
     shutil.rmtree(FORGE_DIR, ignore_errors=True)
     _run("git clone https://github.com/Panchovix/stable-diffusion-webui-reForge.git", cwd=BASE_DIR)
+    # 2.5 Fix requirements_versions.txt
+
+    requirements_path = FORGE_DIR / "requirements_versions.txt"
+    os.remove(requirements_path)  # Eliminar el archivo original
+    wget(
+        "https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/Dev/Reforge-Kaggle/requirements_versions.txt",
+        output=str(requirements_path),
+        quiet=True
+    )
+
     # === NUEVO: Creación de entorno virtual e instalación de paquetes con uv ===
     # Ejecutamos esto DENTRO de FORGE_DIR para que encuentre el requirements.txt
     _run("uv pip install --python /usr/bin/python3.12 --upgrade pip setuptools wheel", cwd=FORGE_DIR)
@@ -135,15 +145,6 @@ def main() -> None:
     # 5. Sistema + aria2
     _run("uv pip install --python /usr/bin/python3.12 gdown", cwd=FORGE_DIR) # Cambiado a uv pip para instalarlo en el entorno virtual
     
-    # 6. Fix requirements_versions.txt
-
-    requirements_path = FORGE_DIR / "requirements_versions.txt"
-    os.remove(requirements_path)  # Eliminar el archivo original
-    wget(
-        "https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/Dev/Reforge-Kaggle/requirements_versions.txt",
-        output=str(requirements_path),
-        quiet=True
-    )
 
     # 7. Enlaces simbólicos
     os.makedirs(LORA_DIR, exist_ok=True)
