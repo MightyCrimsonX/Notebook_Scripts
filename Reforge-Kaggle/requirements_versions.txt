@@ -1,7 +1,7 @@
 setuptools==69.5.1
 GitPython==3.1.32
 pillow==10.4.0
-accelerate==0.26.0
+accelerate
 blendmodes==2024.1.1
 clean-fid==0.1.35
 diskcache==5.6.3
@@ -35,7 +35,8 @@ httpx==0.24.1
 pillow-avif-plugin==1.4.6 
 albumentations==1.4.3
 https://github.com/Panchovix/pydantic-fixreforge/releases/download/main_v1/pydantic-1.10.15-py3-none-any.whl
-diffusers==0.32.2
+diffusers
+peft
 cachetools==5.5.1
 colorama==0.4.6
 huggingface_hub==0.25.0
