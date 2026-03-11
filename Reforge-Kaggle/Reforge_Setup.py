@@ -79,7 +79,7 @@ def main() -> None:
     _run("uv pip install --python /usr/bin/python3.12 addict fvcore onnxruntime svglib yapf --no-progress", cwd=FORGE_DIR)
     _run("uv pip install --python /usr/bin/python3.12 numpy==1.26.4 --reinstall --no-progress", cwd=FORGE_DIR)
     _run("uv pip install --python /usr/bin/python3.12 clip gradio==3.41.2 ultralytics insightface send2trash ZipUnicode bs4 pysocks gdown aria2 pv lz4 --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.12 -r requirements_version.txt --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.12 -r requirements_versions.txt --no-progress", cwd=FORGE_DIR)
 
     # Descargar e instalar sageattention
     _run("uv pip install --python /usr/bin/python3.12 torch==2.9.1 torchvision==0.24.1 xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/cu128 --no-progress", cwd=FORGE_DIR)
