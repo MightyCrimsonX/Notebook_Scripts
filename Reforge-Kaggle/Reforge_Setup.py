@@ -136,7 +136,17 @@ def main() -> None:
     # 5. Sistema + aria2
     _run("uv pip install --python /usr/bin/python3.12 gdown", cwd=FORGE_DIR) # Cambiado a uv pip para instalarlo en el entorno virtual
     
-    # 6. Enlaces simbólicos
+    # 6. Fix requirements_versions.txt
+
+    requirements_path = FORGE_DIR / "requirements_versions.txt"
+    os.remove(requirements_path)  # Eliminar el archivo original
+    wget(
+        "https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/Dev/Reforge-Kaggle/requirements_versions.txt",
+        output=str(requirements_path),
+        quiet=True
+    )
+
+    # 7. Enlaces simbólicos
     os.makedirs(LORA_DIR, exist_ok=True)
     # tmp
     _run("rm -rf /kaggle/working/tmp ~/tmp")
