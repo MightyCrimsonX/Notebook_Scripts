@@ -512,7 +512,7 @@
     "live_previews_enable": true,
     "live_previews_image_format": "png",
     "show_progress_grid": true,
-    "show_progress_every_n_steps": 10,
+    "show_progress_every_n_steps": 2,
     "show_progress_type": "Approx NN",
     "live_preview_allow_lowvram_full": false,
     "live_preview_content": "Prompt",
