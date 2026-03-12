@@ -22,7 +22,7 @@ TMP_LORAS = TMP_DIR / "lora"
 TMP_CONTROLNET = TMP_DIR / "controlnet"
 UPSCALERS_DIR = MODELS_DIR / "ESRGAN"
 ADETAILER_DIR = MODELS_DIR / "adetailer"
-EMBEDDINGS_DIR = MODELS_DIR / "embeddings"
+EMBEDDINGS_DIR = FORGE_DIR / "embeddings"
 
 def _run(cmd: str, cwd: Path | None = None) -> None:
     """Ejecuta un comando shell."""
