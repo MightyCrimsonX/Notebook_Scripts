@@ -104,7 +104,7 @@ def main() -> None:
         quiet=True
     )
     wget(
-        "https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/Dev/Forge_classic_Kaggle/download_magic.py",
+        "https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/Dev/scripts/download_magic.py",
         output=str(BASE_DIR / "download_magic.py"),
         quiet=True
     )
