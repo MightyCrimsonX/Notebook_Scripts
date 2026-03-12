@@ -106,6 +106,11 @@ def main() -> None:
         quiet=True
     )
     wget(
+        "https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/Dev/Forge_Classic-Lightning/temp_dir.py",
+        output=str(BASE_DIR / "temp_dir.py"),
+        quiet=True
+    )
+    wget(
         "https://huggingface.co/datasets/Mightys/Notebook_Scripts/resolve/main/libmimalloc.so.2.1",
         output=str(BASE_DIR / "libmimalloc.so.2.1"),
         quiet=True
