@@ -11,9 +11,10 @@ import shutil
 from pathlib import Path
 
 BASE_DIR = Path("/kaggle/working").resolve()
-FORGE_DIR = BASE_DIR / "sd-webui-forge-classic"
+FORGE_DIR = BASE_DIR / "stable-diffusion-webui-reForge"
 MODELS_DIR = FORGE_DIR / "models"
 VAE_DIR = MODELS_DIR / "VAE"
+LORA_DIR = MODELS_DIR / "Lora"
 EXT_DIR = FORGE_DIR / "extensions"
 TMP_DIR = Path("/tmp")
 TMP_MODELS = TMP_DIR / "models"
@@ -21,7 +22,7 @@ TMP_LORAS = TMP_DIR / "lora"
 TMP_CONTROLNET = TMP_DIR / "controlnet"
 UPSCALERS_DIR = MODELS_DIR / "ESRGAN"
 ADETAILER_DIR = MODELS_DIR / "adetailer"
-EMBEDDINGS_DIR = MODELS_DIR / "embeddings"
+EMBEDDINGS_DIR = FORGE_DIR / "embeddings"
 
 def _run(cmd: str, cwd: Path | None = None) -> None:
     """Ejecuta un comando shell."""
@@ -56,9 +57,9 @@ def main() -> None:
     _run("sudo apt-get update")
     _run("sudo apt install aria2 -q")
     
-    # === NUEVO: Instalación de dependencias para Python 3.11 y uv ===
+    # === NUEVO: Instalación de dependencias para Python 3.12 y uv ===
     _run("sudo add-apt-repository -y ppa:deadsnakes/ppa")
-    _run("sudo apt install -y python3.11-dev python3.11-distutils")
+    _run("sudo apt install -y python3.12-dev python3.12-distutils")
     _run("curl -LsSf https://astral.sh/uv/install.sh | sh")
     
     # Configurar variables de entorno para uv
@@ -67,30 +68,45 @@ def main() -> None:
 
     # 2. Clonar forge-classic
     shutil.rmtree(FORGE_DIR, ignore_errors=True)
-    _run("git clone -b classic https://github.com/Haoming02/sd-webui-forge-classic.git", cwd=BASE_DIR)
+    _run("git clone https://github.com/Panchovix/stable-diffusion-webui-reForge.git", cwd=BASE_DIR)
+    # 2.5 Fix requirements_versions.txt
+
+    requirements_path = FORGE_DIR / "requirements_versions.txt"
+    os.remove(requirements_path)  # Eliminar el archivo original
+    wget(
+        "https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/Dev/Reforge-Kaggle/requirements_versions.txt",
+        output=str(requirements_path),
+        quiet=True
+    )
+
     # === NUEVO: Creación de entorno virtual e instalación de paquetes con uv ===
     # Ejecutamos esto DENTRO de FORGE_DIR para que encuentre el requirements.txt
-    _run("uv pip install --python /usr/bin/python3.11 --upgrade pip setuptools wheel", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.11 mediapipe==0.10.32 --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.11 https://github.com/huchenlei/Depth-Anything/releases/download/v1.0.0/depth_anything-2024.1.22.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.11 https://github.com/huchenlei/HandRefinerPortable/releases/download/v1.0.1/handrefinerportable-2024.2.12.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.11 https://github.com/MackinationsAi/UDAV2-ControlNet/releases/download/v1.0.0/depth_anything_v2-2024.7.1.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.11 addict fvcore onnxruntime svglib yapf --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.11 numpy==1.26.4 --reinstall --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.11 clip gradio==3.41.2 ultralytics==8.3.216 insightface send2trash ZipUnicode bs4 pysocks gdown aria2 pv lz4 --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.11 -r requirements.txt --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.12 --upgrade pip setuptools wheel", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.12 mediapipe==0.10.32 --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.12 https://github.com/huchenlei/Depth-Anything/releases/download/v1.0.0/depth_anything-2024.1.22.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.12 https://github.com/huchenlei/HandRefinerPortable/releases/download/v1.0.1/handrefinerportable-2024.2.12.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.12 https://github.com/MackinationsAi/UDAV2-ControlNet/releases/download/v1.0.0/depth_anything_v2-2024.7.1.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.12 addict fvcore onnxruntime svglib yapf --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.12 numpy==1.26.4 --reinstall --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.12 clip gradio==3.41.2 ultralytics insightface send2trash ZipUnicode bs4 pysocks gdown aria2 pv lz4 --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.12 -r requirements_versions.txt --no-progress", cwd=FORGE_DIR)
 
     # Descargar e instalar sageattention
-    _run("uv pip install --python /usr/bin/python3.11 torch==2.9.1 torchvision==0.24.1 xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/cu128 --no-progress", cwd=FORGE_DIR)
-    sage_whl = "sageattention-2.1.2-cp311-cp311-linux_x86_64.whl"
-    wget(f"https://huggingface.co/datasets/WhiteAiZ/T4_SageAttention2_For_Google_Colab/resolve/main/python%203.11/{sage_whl}", output=str(FORGE_DIR / sage_whl), quiet=True)
-    _run(f"uv pip install --python /usr/bin/python3.11 {sage_whl}", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.12 torch==2.9.1 torchvision==0.24.1 xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/cu128 --no-progress", cwd=FORGE_DIR)
+    sage_whl = "sageattention-2.1.2-cp312-cp312-linux_x86_64.whl"
+    wget(f"https://huggingface.co/datasets/WhiteAiZ/T4_SageAttention2_For_Google_Colab/resolve/main/python%203.12/{sage_whl}", output=str(FORGE_DIR / sage_whl), quiet=True)
+    _run(f"uv pip install --python /usr/bin/python3.12 {sage_whl}", cwd=FORGE_DIR)
     # =================================================================
 
     # 3. Descargar ui-config.json, styles.csv y scripts
     wget(
-        "https://huggingface.co/datasets/WhiteAiZ/sd-webui-forge-classic/resolve/main/ui-config.json",
+        "https://huggingface.co/datasets/WhiteAiZ/stable-diffusion-webui-reForge/resolve/main/ui-config.json",
         output=str(FORGE_DIR / "ui-config.json"),
+        quiet=True
+    )
+    wget(
+        "https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/Dev/Reforge-Kaggle/configreforge.json",
+        output=str(FORGE_DIR / "config.json"),
         quiet=True
     )
     wget(
@@ -130,29 +146,31 @@ def main() -> None:
     
     for repo, depth in repos:
         clone(repo, cwd=EXT_DIR, depth=depth)
-    _run("uv pip install --python /usr/bin/python3.11 numpy==1.26.4 --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --python /usr/bin/python3.12 numpy==1.26.4 --no-progress", cwd=FORGE_DIR)
     # 5. Sistema + aria2
-    _run("uv pip install --python /usr/bin/python3.11 gdown", cwd=FORGE_DIR) # Cambiado a uv pip para instalarlo en el entorno virtual
+    _run("uv pip install --python /usr/bin/python3.12 gdown", cwd=FORGE_DIR) # Cambiado a uv pip para instalarlo en el entorno virtual
     
-    # 6. Enlaces simbólicos
+
+    # 7. Enlaces simbólicos
+    os.makedirs(LORA_DIR, exist_ok=True)
     # tmp
     _run("rm -rf /kaggle/working/tmp ~/tmp")
     _run("ln -vs /tmp ~/tmp")
     
     # models
-    _run("rm -rf /kaggle/working/sd-webui-forge-classic/models/Stable-diffusion/tmp_models")
+    _run("rm -rf /kaggle/working/stable-diffusion-webui-reForge/models/Stable-diffusion/tmp_models")
     _run("mkdir -p /tmp/models")
-    _run("ln -vs /tmp/models /kaggle/working/sd-webui-forge-classic/models/Stable-diffusion/tmp_models")
+    _run("ln -vs /tmp/models /kaggle/working/stable-diffusion-webui-reForge/models/Stable-diffusion/tmp_models")
     
     # lora
-    _run("rm -rf /kaggle/working/sd-webui-forge-classic/models/Lora/tmp_lora")
+    _run("rm -rf /kaggle/working/stable-diffusion-webui-reForge/models/Lora/tmp_lora")
     _run("mkdir -p /tmp/lora")
-    _run("ln -vs /tmp/lora /kaggle/working/sd-webui-forge-classic/models/Lora/tmp_lora")
+    _run("ln -vs /tmp/lora /kaggle/working/stable-diffusion-webui-reForge/models/Lora/tmp_lora")
 
     # Controlnet
-    _run("rm -rf /kaggle/working/sd-webui-forge-classic/models/ControlNet")
+    _run("rm -rf /kaggle/working/stable-diffusion-webui-reForge/models/ControlNet")
     _run("mkdir -p /tmp/controlnet")
-    _run("ln -vs /tmp/controlnet /kaggle/working/sd-webui-forge-classic/models/ControlNet")
+    _run("ln -vs /tmp/controlnet /kaggle/working/stable-diffusion-webui-reForge/models/ControlNet")
     print("\n✅ Enlaces simbólicos creados.")
     os.makedirs(ADETAILER_DIR, exist_ok=True)
     os.makedirs(UPSCALERS_DIR, exist_ok=True)
