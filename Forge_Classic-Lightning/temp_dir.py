@@ -28,7 +28,7 @@ def enlaces_tmp_comfy() -> None:
         "ln -vs /tmp ~/tmp",
         "rm -rf /teamspace/studios/this_studio/sd-webui-forge-classic/models/Stable-diffusion/tmp_models",
         "mkdir -p /tmp/models",
-        "ln -vs /tmp/models /kaggle/working/sd-webui-forge-classic/models/Stable-diffusion/tmp_models",
+        "ln -vs /tmp/models /teamspace/studios/this_studio/sd-webui-forge-classic/models/Stable-diffusion/tmp_models",
         "rm -rf /teamspace/studios/this_studio/sd-webui-forge-classic/models/Lora/tmp_lora",
         "mkdir -p /tmp/lora",
         "ln -vs /tmp/lora /teamspace/studios/this_studio/sd-webui-forge-classic/models/Lora/tmp_lora",
