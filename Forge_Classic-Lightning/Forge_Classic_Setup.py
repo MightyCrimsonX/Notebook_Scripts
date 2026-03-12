@@ -57,6 +57,7 @@ def main() -> None:
     _run("sudo apt install aria2 -q")
     
     # === NUEVO: Instalación de dependencias para Python 3.11 y uv ===
+    _run("sudo apt install software-properties-common")
     _run("sudo add-apt-repository -y ppa:deadsnakes/ppa")
     _run("sudo apt install -y python3.11-dev python3.11-distutils")
     _run("curl -LsSf https://astral.sh/uv/install.sh | sh")
