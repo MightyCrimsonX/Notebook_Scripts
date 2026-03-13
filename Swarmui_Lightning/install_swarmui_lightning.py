@@ -68,6 +68,8 @@ def main() -> None:
          quiet=True)
     wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/scripts/temp_dir.py",
          quiet=True)
+    os.chdir(SWARM_DIR)
+    _run("git pull")
 
     # 4. Preparar directorios y clonar ComfyUI
     _run("sudo apt install git python3-pip -y")
@@ -79,6 +81,7 @@ def main() -> None:
 
     # 5. Dependencias de ComfyUI
     os.chdir(COMFY_DIR)
+    _run("git pull")
     _run("uv pip install -U transformers peft")
     aria2c("https://github.com/JamePeng/llama-cpp-python/releases/download/v0.3.17-cu128-AVX2-linux-20251209/llama_cpp_python-0.3.17-cp312-cp312-linux_x86_64.whl")
     _run("uv pip install llama_cpp_python-0.3.17-cp312-cp312-linux_x86_64.whl")
