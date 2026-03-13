@@ -23,6 +23,7 @@ TMP_VAE = "/tmp/vae"
 TMP_CONTROLNET = "/tmp/controlnet"
 TMP_DIFFUSION = "/tmp/diffusion_models"
 TMP_TEXT_ENCODERS = "/tmp/text_encoders"
+TMP_TIPOMODEL = "/tmp/kgen"
 
 def _run(cmd: str) -> None:
     print(f"+ {cmd}")
