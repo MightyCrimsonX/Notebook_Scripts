@@ -10,7 +10,7 @@ import subprocess
 import shutil
 from pathlib import Path
 
-BASE_DIR = Path("/kaggle/working").resolve()
+BASE_DIR = Path("/teamspace/studios/this_studio").resolve()
 FORGE_DIR = BASE_DIR / "sd-webui-forge-classic"
 MODELS_DIR = FORGE_DIR / "models"
 VAE_DIR = MODELS_DIR / "VAE"
@@ -136,23 +136,23 @@ def main() -> None:
     
     # 6. Enlaces simbólicos
     # tmp
-    _run("rm -rf /kaggle/working/tmp ~/tmp")
+    _run("rm -rf /teamspace/studios/this_studio/tmp ~/tmp")
     _run("ln -vs /tmp ~/tmp")
     
     # models
-    _run("rm -rf /kaggle/working/sd-webui-forge-classic/models/Stable-diffusion/tmp_models")
+    _run("rm -rf /teamspace/studios/this_studio/sd-webui-forge-classic/models/Stable-diffusion/tmp_models")
     _run("mkdir -p /tmp/models")
     _run("ln -vs /tmp/models /kaggle/working/sd-webui-forge-classic/models/Stable-diffusion/tmp_models")
     
     # lora
-    _run("rm -rf /kaggle/working/sd-webui-forge-classic/models/Lora/tmp_lora")
+    _run("rm -rf /teamspace/studios/this_studio/sd-webui-forge-classic/models/Lora/tmp_lora")
     _run("mkdir -p /tmp/lora")
-    _run("ln -vs /tmp/lora /kaggle/working/sd-webui-forge-classic/models/Lora/tmp_lora")
+    _run("ln -vs /tmp/lora /teamspace/studios/this_studio/sd-webui-forge-classic/models/Lora/tmp_lora")
 
     # Controlnet
-    _run("rm -rf /kaggle/working/sd-webui-forge-classic/models/ControlNet")
+    _run("rm -rf /teamspace/studios/this_studio/sd-webui-forge-classic/models/ControlNet")
     _run("mkdir -p /tmp/controlnet")
-    _run("ln -vs /tmp/controlnet /kaggle/working/sd-webui-forge-classic/models/ControlNet")
+    _run("ln -vs /tmp/controlnet /teamspace/studios/this_studio/sd-webui-forge-classic/models/ControlNet")
     print("\n✅ Enlaces simbólicos creados.")
     os.makedirs(ADETAILER_DIR, exist_ok=True)
     os.makedirs(UPSCALERS_DIR, exist_ok=True)
