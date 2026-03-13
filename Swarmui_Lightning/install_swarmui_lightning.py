@@ -66,7 +66,7 @@ def main() -> None:
          quiet=True)
     wget("https://huggingface.co/datasets/Mightys/Notebook_Scripts/resolve/main/libmimalloc.so.2.1",
          quiet=True)
-    wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/scripts/temp_dir.py",
+    wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/Swarmui_Lightning/symb.py",
          quiet=True)
     os.chdir(SWARM_DIR)
     _run("git pull")
