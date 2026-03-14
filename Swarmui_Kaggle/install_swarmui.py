@@ -27,6 +27,7 @@ TMP_VAE = "/tmp/vae"
 TMP_CONTROLNET = "/tmp/controlnet"
 TMP_DIFFUSION = "/tmp/diffusion_models"
 TMP_TEXT_ENCODERS = "/tmp/text_encoders"
+EMBEDDINGS = "/kaggle/working/SwarmUI/Models/embeddings"
 
 def _run(cmd: str, cwd: Path | None = None) -> None:
     """Ejecuta un comando shell."""
@@ -190,6 +191,7 @@ def main() -> None:
     os.makedirs(TEXT_ENCODER_DIR, exist_ok=True)
     os.makedirs(UNET_DIR, exist_ok=True)
     os.makedirs(CLIP_DIR, exist_ok=True)
+    os.makedirs(EMBEDDINGS, exist_ok=True)
     _run("rm -rf /kaggle/working/tmp ~/tmp")
     _run("ln -vs /tmp ~/tmp")
 
