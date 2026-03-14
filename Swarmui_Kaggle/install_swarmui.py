@@ -27,7 +27,7 @@ TMP_VAE = "/tmp/vae"
 TMP_CONTROLNET = "/tmp/controlnet"
 TMP_DIFFUSION = "/tmp/diffusion_models"
 TMP_TEXT_ENCODERS = "/tmp/text_encoders"
-EMBEDDINGS = "/kaggle/working/SwarmUI/Models/embeddings"
+EMBEDDINGS = "/kaggle/working/SwarmUI/Models/Embeddings"
 
 def _run(cmd: str, cwd: Path | None = None) -> None:
     """Ejecuta un comando shell."""
