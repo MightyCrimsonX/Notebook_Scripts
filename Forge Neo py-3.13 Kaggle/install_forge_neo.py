@@ -38,7 +38,7 @@ def main() -> None:
 
     # 1. Descargas iniciales
     wget("https://huggingface.co/datasets/Mightys/Notebook_Scripts/resolve/main/libmimalloc.so.2.1")
-    wget("https://huggingface.co/datasets/Mightys/SwarmuiColab/resolve/main/scripts/download_magic.py")
+    wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/Forge_classic_Kaggle/download_magic.py")
 
     # 2. Clonar forge-classic (rama neo)
     if not FORGE_DIR.exists():
