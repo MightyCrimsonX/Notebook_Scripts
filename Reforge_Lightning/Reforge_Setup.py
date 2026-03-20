@@ -122,6 +122,11 @@ def main() -> None:
         output=str(BASE_DIR / "libmimalloc.so.2.1"),
         quiet=True
     )
+    wget(
+        "https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/Dev/Reforge_Lightning/temp_dir.py",
+        output=str(BASE_DIR / "temp_dir.py"),
+        quiet=True
+    )
 
     # 4. Extensiones
     EXT_DIR.mkdir(parents=True, exist_ok=True)
