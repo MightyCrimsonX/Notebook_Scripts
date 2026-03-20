@@ -15,7 +15,9 @@ TMP_CONTROLNET = TMP_DIR / "controlnet"
 UPSCALERS_DIR = MODELS_DIR / "ESRGAN"
 ADETAILER_DIR = MODELS_DIR / "adetailer"
 EMBEDDINGS_DIR = FORGE_DIR / "embeddings"
-
+os.makedirs(UPSCALERS_DIR, exist_ok=True)
+os.makedirs(ADETAILER_DIR, exist_ok=True)
+os.makedirs(EMBEDDINGS_DIR, exist_ok=True)
 def _run(cmd: str) -> None:
     print(f"+ {cmd}")
     subprocess.run(cmd, shell=True, check=False)
@@ -28,13 +30,13 @@ def enlaces_tmp_comfy() -> None:
         "ln -vs /tmp ~/tmp",
         "rm -rf /teamspace/studios/this_studio/stable-diffusion-webui-reForge/models/Stable-diffusion/tmp_models",
         "mkdir -p /tmp/models",
-        "ln -vs /teamspace/studios/this_studio/stable-diffusion-webui-reForge/models/Stable-diffusion/tmp_models",
+        "ln -vs /tmp/models /teamspace/studios/this_studio/stable-diffusion-webui-reForge/models/Stable-diffusion/tmp_models",
         "rm -rf /teamspace/studios/this_studio/stable-diffusion-webui-reForge/models/Lora/tmp_lora",
         "mkdir -p /tmp/lora",
         "ln -vs /tmp/lora /teamspace/studios/this_studio/stable-diffusion-webui-reForge/models/Lora/tmp_lora",
         "rm -rf /teamspace/studios/this_studio/stable-diffusion-webui-reForge/models/ControlNet",
         "mkdir -p /tmp/controlnet",
-        "ln -vs /tmp/controlnet /teamspace/studios/this_studio/sd-webui-forge-classic/models/ControlNet",
+        "ln -vs /tmp/controlnet /teamspace/studios/this_studio/stable-diffusion-webui-reForge/models/ControlNet",
     ]
     for c in cmds:
         _run(c)
