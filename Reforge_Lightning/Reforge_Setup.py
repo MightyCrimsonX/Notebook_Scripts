@@ -58,8 +58,6 @@ def main() -> None:
     _run("sudo apt install aria2 -q")
     
     # === NUEVO: Instalación de dependencias para Python 3.12 y uv ===
-    _run("sudo add-apt-repository -y ppa:deadsnakes/ppa")
-    _run("sudo apt install -y python3.12-dev python3.12-distutils")
     _run("curl -LsSf https://astral.sh/uv/install.sh | sh")
     
     # Configurar variables de entorno para uv
@@ -81,15 +79,15 @@ def main() -> None:
 
     # === NUEVO: Creación de entorno virtual e instalación de paquetes con uv ===
     # Ejecutamos esto DENTRO de FORGE_DIR para que encuentre el requirements.txt
-    _run("uv pip install --python /usr/bin/python3.12 --upgrade pip setuptools wheel", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.12 mediapipe==0.10.32 --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.12 https://github.com/huchenlei/Depth-Anything/releases/download/v1.0.0/depth_anything-2024.1.22.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.12 https://github.com/huchenlei/HandRefinerPortable/releases/download/v1.0.1/handrefinerportable-2024.2.12.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.12 https://github.com/MackinationsAi/UDAV2-ControlNet/releases/download/v1.0.0/depth_anything_v2-2024.7.1.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.12 addict fvcore onnxruntime svglib yapf --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.12 numpy==1.26.4 --reinstall --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.12 clip gradio==3.41.2 ultralytics insightface send2trash ZipUnicode bs4 pysocks gdown aria2 pv lz4 --no-progress", cwd=FORGE_DIR)
-    _run("uv pip install --python /usr/bin/python3.12 -r requirements_versions.txt --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install --upgrade pip setuptools wheel", cwd=FORGE_DIR)
+    _run("uv pip install mediapipe==0.10.32 --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install https://github.com/huchenlei/Depth-Anything/releases/download/v1.0.0/depth_anything-2024.1.22.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install https://github.com/huchenlei/HandRefinerPortable/releases/download/v1.0.1/handrefinerportable-2024.2.12.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install https://github.com/MackinationsAi/UDAV2-ControlNet/releases/download/v1.0.0/depth_anything_v2-2024.7.1.0-py2.py3-none-any.whl --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install addict fvcore onnxruntime svglib yapf --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install numpy==1.26.4 --reinstall --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install clip gradio==3.41.2 ultralytics insightface send2trash ZipUnicode bs4 pysocks gdown aria2 pv lz4 --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install -r requirements_versions.txt --no-progress", cwd=FORGE_DIR)
 
     # Descargar e instalar sageattention
     _run("uv pip install --python /usr/bin/python3.12 torch==2.9.1 torchvision==0.24.1 xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/cu128 --no-progress", cwd=FORGE_DIR)
@@ -146,9 +144,9 @@ def main() -> None:
     
     for repo, depth in repos:
         clone(repo, cwd=EXT_DIR, depth=depth)
-    _run("uv pip install --python /usr/bin/python3.12 numpy==1.26.4 --no-progress", cwd=FORGE_DIR)
+    _run("uv pip install numpy==1.26.4 --no-progress", cwd=FORGE_DIR)
     # 5. Sistema + aria2
-    _run("uv pip install --python /usr/bin/python3.12 gdown", cwd=FORGE_DIR) # Cambiado a uv pip para instalarlo en el entorno virtual
+    _run("uv pip install gdown", cwd=FORGE_DIR) # Cambiado a uv pip para instalarlo en el entorno virtual
     
 
     # 7. Enlaces simbólicos

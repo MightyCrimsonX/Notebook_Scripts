@@ -4,7 +4,7 @@ import subprocess
 import os
 from pathlib import Path
 BASE_DIR = Path("/teamspace/studios/this_studio").resolve()
-FORGE_DIR = BASE_DIR / "sd-webui-forge-classic"
+FORGE_DIR = BASE_DIR / "stable-diffusion-webui-reForge"
 MODELS_DIR = FORGE_DIR / "models"
 VAE_DIR = MODELS_DIR / "VAE"
 EXT_DIR = FORGE_DIR / "extensions"
@@ -14,7 +14,7 @@ TMP_LORAS = TMP_DIR / "lora"
 TMP_CONTROLNET = TMP_DIR / "controlnet"
 UPSCALERS_DIR = MODELS_DIR / "ESRGAN"
 ADETAILER_DIR = MODELS_DIR / "adetailer"
-EMBEDDINGS_DIR = MODELS_DIR / "embeddings"
+EMBEDDINGS_DIR = FORGE_DIR / "embeddings"
 
 def _run(cmd: str) -> None:
     print(f"+ {cmd}")
@@ -26,19 +26,19 @@ def enlaces_tmp_comfy() -> None:
     cmds = [
         "rm -rf /teamspace/studios/this_studio/tmp ~/tmp",
         "ln -vs /tmp ~/tmp",
-        "rm -rf /teamspace/studios/this_studio/sd-webui-forge-classic/models/Stable-diffusion/tmp_models",
+        "rm -rf /teamspace/studios/this_studio/stable-diffusion-webui-reForge/models/Stable-diffusion/tmp_models",
         "mkdir -p /tmp/models",
-        "ln -vs /tmp/models /teamspace/studios/this_studio/sd-webui-forge-classic/models/Stable-diffusion/tmp_models",
-        "rm -rf /teamspace/studios/this_studio/sd-webui-forge-classic/models/Lora/tmp_lora",
+        "ln -vs /teamspace/studios/this_studio/stable-diffusion-webui-reForge/models/Stable-diffusion/tmp_models",
+        "rm -rf /teamspace/studios/this_studio/stable-diffusion-webui-reForge/models/Lora/tmp_lora",
         "mkdir -p /tmp/lora",
-        "ln -vs /tmp/lora /teamspace/studios/this_studio/sd-webui-forge-classic/models/Lora/tmp_lora",
-        "rm -rf /teamspace/studios/this_studio/sd-webui-forge-classic/models/ControlNet",
+        "ln -vs /tmp/lora /teamspace/studios/this_studio/stable-diffusion-webui-reForge/models/Lora/tmp_lora",
+        "rm -rf /teamspace/studios/this_studio/stable-diffusion-webui-reForge/models/ControlNet",
         "mkdir -p /tmp/controlnet",
         "ln -vs /tmp/controlnet /teamspace/studios/this_studio/sd-webui-forge-classic/models/ControlNet",
     ]
     for c in cmds:
         _run(c)
-    print("✅ Carpetas temporales de ComfyUI enlazadas.")
+    print("✅ Carpetas temporales de Reforge enlazadas.")
 
 if __name__ == "__main__":
     enlaces_tmp_comfy()
