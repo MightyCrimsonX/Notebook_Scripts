@@ -108,7 +108,7 @@ def main() -> None:
     _run("uv pip install -r requirements.txt --no-progress")
     _run("uv pip install --upgrade pip diffusers transformers --no-progress")
     _run("uv pip install -U transformers peft --no-progress")
-    _run("uv pip install torch==2.9.1 torchvision==0.24.1 torchaudio==2.9.1 xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/nightly/cu128 --no-progress")
+    _run("uv pip install torch==2.9.1 torchvision==0.24.1 torchaudio==2.9.1 xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/cu128 --no-progress")
     _run("uv pip install onnxruntime gdown pickleshare tipo-kgen==0.1.9 insightface clip rembg fastcore==1.8.0 ultralytics==8.3.197 --no-progress")
     # 7. Extensiones de SwarmUI
     ext_dir = SWARM_DIR / "src" / "Extensions"
