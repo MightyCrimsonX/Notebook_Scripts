@@ -131,6 +131,8 @@ def main() -> None:
     os.chdir(wild_dir)
     aria2c("https://huggingface.co/datasets/Mightys/Notebook_Scripts/resolve/main/Wildcards/artist_tags_danbooru5000.txt",
            "5000-booru-artist.txt")
+    aria2c("https://huggingface.co/datasets/Mightys/Notebook_Scripts/resolve/main/Wildcards/anima_artists_v3.5.txt",
+           "anima_artists_v3.5.txt")
 
     # 10. Modelos YOLO (segmentación/adetailers)
     yolo_dir = SWARM_DIR / "Models" / "yolov8"
