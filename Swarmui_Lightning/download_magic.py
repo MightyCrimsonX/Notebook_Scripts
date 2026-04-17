@@ -35,7 +35,7 @@ def download(line):
 
     for url in urls:
         # ---------- CivitAI ----------
-        if "civitai.com" in url:
+        if "civitai.com" in url or "civitai.red" in url:
             if not token:
                 display(HTML("<h4 style='color:red;'>⚠️ Token de CivitAI no encontrado.</h4>"))
                 continue

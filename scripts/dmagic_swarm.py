@@ -231,12 +231,12 @@ def download(line):
             ejecutar_con_progreso(cmd, is_gdown=True)
 
         # ---------- CivitAI y CivitaiArchive (aria2 con preflight) ----------
-        elif "civitai.com" in url or "civitaiarchive.com" in url:
+        elif "civitai.com" in url or "civitai.red" in url or "civitaiarchive.com" in url:
             user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
             headers = {'User-Agent': user_agent}
             if token:
                 headers['Authorization'] = f'Bearer {token}'
-            elif "civitai.com" in url:
+            elif "civitai.com" in url or "civitai.red" in url:
                 display(HTML("<h4 style='color:orange;'>⚠️ Token de CivitAI no encontrado.</h4>"))
 
             final_url = url
