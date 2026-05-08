@@ -107,7 +107,7 @@ def main() -> None:
     _run("uv pip install comfy-aimdo==0.2.8 --no-progress")
     _run("uv pip install -r requirements.txt --no-progress")
     _run("uv pip install --upgrade pip diffusers transformers --no-progress")
-    #_run("uv pip install -U transformers peft --no-progress")
+    #_run("uv pip install -U transformers --no-progress")
     _run("uv pip install torch==2.9.1 torchvision==0.24.1 torchaudio==2.9.1 xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/cu128 --no-progress")
 
     # 7. Extensiones de SwarmUI
@@ -116,7 +116,7 @@ def main() -> None:
     os.chdir(ext_dir)
     clone("https://github.com/jtreminio/SwarmUI-PromptBuilderExtension.git")
     clone("https://github.com/yoinked-h/MaHiRon-SwarmUI.git")
-    clone("https://github.com/Hugs288/TipoForSwarmUI.git")
+    #clone("https://github.com/Hugs288/TipoForSwarmUI.git")
 
     # 8. SageAttention
     os.chdir(WORK_DIR)
