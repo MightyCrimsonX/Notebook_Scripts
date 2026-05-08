@@ -226,7 +226,7 @@ def main() -> None:
     os.chdir(COMFY_EXT_DIR)
     clone("https://github.com/MightyCrimsonX/Euler-Smea-Dyn-Sampler-Comfyui.git")
     clone("https://github.com/mcmonkeyprojects/sd-dynamic-thresholding.git")
-    clone("https://github.com/KohakuBlueleaf/z-tipo-extension.git")
+    #clone("https://github.com/KohakuBlueleaf/z-tipo-extension.git")
     clone("https://github.com/Fannovel16/comfyui_controlnet_aux.git")
     CNET_AUX_DIR = os.path.join(COMFY_EXT_DIR, "comfyui_controlnet_aux")
     os.chdir(CNET_AUX_DIR)
