@@ -105,8 +105,8 @@ def main() -> None:
     # 6. Dependencias de ComfyUI
     os.chdir(COMFY_DIR)
     _run("uv pip install comfy-aimdo==0.2.8 --no-progress")
-    _run("uv pip install comfyui-frontend-package==1.38.14")
     _run("uv pip install -r requirements.txt --no-progress")
+    _run("uv pip install comfyui-frontend-package==1.38.14")
     _run("uv pip install --upgrade pip diffusers transformers --no-progress")
     #_run("uv pip install -U transformers --no-progress")
     _run("uv pip install torch==2.9.1 torchvision==0.24.1 torchaudio==2.9.1 xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/cu128 --no-progress")
