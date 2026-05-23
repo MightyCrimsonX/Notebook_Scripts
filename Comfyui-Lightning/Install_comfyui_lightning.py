@@ -74,16 +74,15 @@ def main() -> None:
          quiet=True)
     
       # 4. Dependencias Python
-    _run("sudo apt install git python3-pip -y")
 
     os.chdir(COMFY_DIR)
     _run("uv pip install -U transformers peft")
     aria2c("https://github.com/JamePeng/llama-cpp-python/releases/download/v0.3.17-cu128-AVX2-linux-20251209/llama_cpp_python-0.3.17-cp312-cp312-linux_x86_64.whl",
            "llama_cpp_python-0.3.17-cp312-cp312-linux_x86_64.whl")
     _run("uv pip install llama_cpp_python-0.3.17-cp312-cp312-linux_x86_64.whl")
-    _run("!uv pip install torch==2.9.1 torchvision==0.24.1 torchaudio==2.9.1 xformers==0.0.33.post2 triton==3.5.1 "
+    _run("!uv pip install torch==2.9.1 torchvision==0.24.1 torchaudio==2.9.1 xformers==0.0.33.post2 triton==3.5.1"
          "--index-url https://download.pytorch.org/whl/cu128 --no-progress")
-    _run("uv pip install tipo-kgen rembg ultralytics==8.3.216 onnxruntime gdown pickleshare insightface clip numpy==2.3.0 "
+    _run("uv pip install ultralytics==8.3.216 onnxruntime segment-anything gdown pickleshare insightface clip rembg numpy==2.3.0 "
          "--no-progress")
     _run("uv pip install -r requirements.txt --no-progress")
 
