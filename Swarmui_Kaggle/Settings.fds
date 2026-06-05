@@ -547,7 +547,7 @@ UserAuthorization:
 Logs:
 	#The minimum tier of logs that should be visible in the console and saved to file.
 	#Default is 'info'.
-	LogLevel: Info
+	LogLevel: Debug
 	#If true, logs will be saved to a file. If false, logs will be available in console and UI while running, but never saved to file.
 	#Defaults to false.
 	#Must restart Swarm to apply.
