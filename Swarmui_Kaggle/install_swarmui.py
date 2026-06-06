@@ -118,6 +118,7 @@ def main() -> None:
     clone("https://github.com/jtreminio/SwarmUI-PromptBuilderExtension.git")
     clone("https://github.com/yoinked-h/MaHiRon-SwarmUI.git")
     clone("https://github.com/jtreminio/SwarmUI-PostRenderTorched.git")
+    clone("https://github.com/jakstein/SwarmUI-Epsilon-Scaling.git")
     #clone("https://github.com/Hugs288/TipoForSwarmUI.git")
 
     # 8. SageAttention
