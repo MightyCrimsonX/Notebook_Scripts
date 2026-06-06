@@ -74,7 +74,7 @@ def main() -> None:
     data_dir = SWARM_DIR / "Data"
     data_dir.mkdir(parents=True, exist_ok=True)
     os.chdir(data_dir)
-    
+    _run("rm -rf Settings.fds")
     wget("https://huggingface.co/datasets/Mightys/Notebook_Scripts/resolve/main/Swarmui_Kaggle/Settings.fds",
          quiet=True, show_progress=False)
     wget("https://huggingface.co/datasets/Mightys/Notebook_Scripts/resolve/main/Swarmui_Kaggle/Backends.fds",
