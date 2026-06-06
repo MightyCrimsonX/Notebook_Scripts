@@ -231,7 +231,11 @@ def main() -> None:
     clone("https://github.com/mcmonkeyprojects/sd-dynamic-thresholding.git")
     #clone("https://github.com/KohakuBlueleaf/z-tipo-extension.git")
     clone("https://github.com/Fannovel16/comfyui_controlnet_aux.git")
+    clone("https://github.com/ClownsharkBatwing/RES4LYF.git")
+    RES4LYF_DIR = os.path.join(COMFY_EXT_DIR, "RES4LYF")
     CNET_AUX_DIR = os.path.join(COMFY_EXT_DIR, "comfyui_controlnet_aux")
+    os.chdir(RES4LYF_DIR)
+    _run("uv pip install -r requirements.txt --no-progress")
     os.chdir(CNET_AUX_DIR)
     _run("uv pip install -r requirements.txt --no-progress")
 
