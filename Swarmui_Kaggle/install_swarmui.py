@@ -183,7 +183,7 @@ def main() -> None:
         print("✅ Parche listo.")
     
     _run("pip install -q requests")
-    _run("uv pip install onnxruntime gdown pickleshare tipo-kgen==0.1.9 insightface clip rembg fastcore==1.8.0 ultralytics==8.3.197 --no-progress")
+    _run("uv pip install ultralytics==8.3.216 onnxruntime tipo-kgen==0.1.9 gdown Pillow pickleshare insightface clip rembg numpy==2.3.0 --no-progress")
     # 14. Configuración de enlaces simbólicos para modelos y recursos
     # Asegurar que las carpetas existan
     os.makedirs(HOME, exist_ok=True)
