@@ -259,7 +259,7 @@ def download(line):
 
             cmd = [
                 "aria2c", "--summary-interval=1",
-                "-c", "-x", "16", "-s", "16", "-k", "1M",
+                "-c", "-x", "6", "-s", "6", "-k", "1M",
                 f"--header=User-Agent: {user_agent}",
                 "-d", dest
             ]
