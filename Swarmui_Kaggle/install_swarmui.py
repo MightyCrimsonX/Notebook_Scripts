@@ -48,7 +48,7 @@ def wget(url: str, output: str | None = None, quiet: bool = False, show_progress
 
 def aria2c(url: str, output: str, cwd: Path | None = None) -> None:
     """Descarga con aria2c."""
-    cmd = (f'aria2c --console-log-level=error -c -x 16 -s 16 -k 1M '
+    cmd = (f'aria2c --console-log-level=error -c -x 8 -s 8 -k 1M '
            f'"{url}" -o {output}')
     _run(cmd, cwd=cwd)
 
@@ -243,7 +243,6 @@ def main() -> None:
     kgen = os.path.join(comfymodels, "kgen")
     os.makedirs(kgen, exist_ok=True)
     os.chdir(kgen)
-    aria2c("https://huggingface.co/KBlueLeaf/TIPO-500M-ft/resolve/main/TIPO-500M-ft-F16.gguf", "TIPO-500M-ft-F16.gguf")
 
 
     # Limpiar y mensaje final
