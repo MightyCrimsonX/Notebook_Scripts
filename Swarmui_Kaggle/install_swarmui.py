@@ -227,7 +227,7 @@ def main() -> None:
 
     #15 instalacion de custom nodes para comfyui
     os.chdir(COMFY_EXT_DIR)
-    clone("https://github.com/MightyCrimsonX/Euler-Smea-Dyn-Sampler-Comfyui.git")
+    #clone("https://github.com/MightyCrimsonX/Euler-Smea-Dyn-Sampler-Comfyui.git")
     clone("https://github.com/mcmonkeyprojects/sd-dynamic-thresholding.git")
     #clone("https://github.com/KohakuBlueleaf/z-tipo-extension.git")
     clone("https://github.com/Fannovel16/comfyui_controlnet_aux.git")
