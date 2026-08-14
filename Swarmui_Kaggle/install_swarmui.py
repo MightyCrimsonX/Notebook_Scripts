@@ -104,6 +104,7 @@ def main() -> None:
 
     # 6. Dependencias de ComfyUI
     os.chdir(COMFY_DIR)
+    _run("git checkout e3f5700")
     _run("uv pip install comfy-aimdo==0.2.8 --no-progress")
     _run("uv pip install -r requirements.txt --no-progress")
     _run("uv pip install comfyui-frontend-package==1.42.11")
