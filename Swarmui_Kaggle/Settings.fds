@@ -111,7 +111,7 @@ Metadata:
 	#If true, image metadata will include a list of models with their hashes.
 	#This is useful for services like civitai to automatically link models.
 	#This will cause extra time to be taken when new hashes need to be loaded.
-	ImageMetadataIncludeModelHash: false
+	ImageMetadataIncludeModelHash: true
 	#How many kilobytes of blank spacer to include in model headers.
 	#This allows for future expansion of metadata without rewriting the entire model file.
 	#Defaults to 64 KiB.
