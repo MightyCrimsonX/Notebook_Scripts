@@ -191,7 +191,7 @@ def main() -> None:
     _run("pip install -q requests")
     _run("uv pip install ultralytics==8.3.216 onnxruntime gdown Pillow pickleshare insightface clip rembg numpy==2.3.0 --no-progress")
     # 14. Configuración de enlaces simbólicos para modelos y recursos
-    # Asegurar que las carpetas existan
+    os.chdir(WORK_DIR)
     os.makedirs(HOME, exist_ok=True)
     os.makedirs(BASE_MODELS_DIR, exist_ok=True)
     os.makedirs(LORA_DIR, exist_ok=True)
