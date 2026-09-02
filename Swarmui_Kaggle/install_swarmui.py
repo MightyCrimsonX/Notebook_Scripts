@@ -62,6 +62,7 @@ def main() -> None:
     # 1. Descargas iniciales y clonar SwarmUI
     wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/scripts/dmagic_swarm.py")
     wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/Swarmui_Kaggle/gestor_swarm.py")
+    wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/Swarmui_Kaggle/launchswarm.py")
     if not SWARM_DIR.exists():
         clone("https://github.com/mcmonkeyprojects/SwarmUI")
     
@@ -86,7 +87,7 @@ def main() -> None:
     auto_dir = data_dir / "Autocompletions"
     auto_dir.mkdir(parents=True, exist_ok=True)
     os.chdir(auto_dir)
-    wget("https://huggingface.co/datasets/Mightys/SwarmuiColab/resolve/main/Data/Autocompletions/danbooru_e621_merged.csv",
+    wget("https://github.com/BetaDoggo/danbooru-tag-list/releases/download/Model-Tags/anima-1.0.csv",
          quiet=True, show_progress=False)
 
     # 3. Instalar .NET
@@ -104,11 +105,14 @@ def main() -> None:
 
     # 6. Dependencias de ComfyUI
     os.chdir(COMFY_DIR)
-    _run("git checkout e3f5700")
+    #_run("git checkout e3f5700")
+    _run("sudo apt update -qq")
+    _run("curl -LsSf https://hf.co/cli/install.sh | bash")
     _run("uv pip install comfy-aimdo==0.2.8 --no-progress")
     _run("uv pip install -r requirements.txt --no-progress")
-    _run("uv pip install comfyui-frontend-package==1.42.11")
+    _run("uv pip install comfyui-frontend-package==1.51.9")
     _run("uv pip install --upgrade pip diffusers transformers --no-progress")
+    _run("sed -i '/--channel 10.0/d' /kaggle/working/SwarmUI/launchtools/linux-dotnet-install.sh")
     #_run("uv pip install -U transformers --no-progress")
     _run("uv pip install torch==2.9.1 torchvision==0.24.1 torchaudio==2.9.1 xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/cu128 --no-progress")
 
@@ -120,6 +124,7 @@ def main() -> None:
     clone("https://github.com/yoinked-h/MaHiRon-SwarmUI.git")
     clone("https://github.com/jtreminio/SwarmUI-PostRenderTorched.git")
     clone("https://github.com/jakstein/SwarmUI-Epsilon-Scaling.git")
+    clone("https://github.com/MightyCrimsonX/Swarmui-Image-Encriptor.git")
     #clone("https://github.com/Hugs288/TipoForSwarmUI.git")
 
     # 8. SageAttention
@@ -164,8 +169,8 @@ def main() -> None:
     vae_dir.mkdir(parents=True, exist_ok=True)
     os.chdir(vae_dir)
     # Nota: %download es una magic de IPython, aquí usamos wget directamente
-    wget("https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/sdxl_vae.safetensors",
-         quiet=True, show_progress=False)
+    #wget("https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/sdxl_vae.safetensors",
+    #    quiet=True, show_progress=False)
 
     # 12. Gradio tunnel
     gradio_script = SWARM_DIR / "gradio-tunnel.py"
@@ -184,7 +189,7 @@ def main() -> None:
         print("✅ Parche listo.")
     
     _run("pip install -q requests")
-    _run("uv pip install ultralytics==8.3.216 onnxruntime tipo-kgen==0.1.9 gdown Pillow pickleshare insightface clip rembg numpy==2.3.0 --no-progress")
+    _run("uv pip install ultralytics==8.3.216 onnxruntime gdown Pillow pickleshare insightface clip rembg numpy==2.3.0 --no-progress")
     # 14. Configuración de enlaces simbólicos para modelos y recursos
     # Asegurar que las carpetas existan
     os.makedirs(HOME, exist_ok=True)
