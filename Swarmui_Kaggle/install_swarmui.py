@@ -76,6 +76,7 @@ def main() -> None:
     data_dir.mkdir(parents=True, exist_ok=True)
     os.chdir(data_dir)
     _run("rm -rf Settings.fds")
+    _run("rm -rf Users.ldb")
     wget("https://huggingface.co/datasets/Mightys/Notebook_Scripts/resolve/main/Swarmui_Kaggle/Settings.fds",
          quiet=True, show_progress=False)
     wget("https://huggingface.co/datasets/Mightys/Notebook_Scripts/resolve/main/Swarmui_Kaggle/Backends.fds",
