@@ -115,7 +115,7 @@ def main() -> None:
     _run("uv pip install --upgrade pip diffusers transformers --no-progress")
     _run("sed -i '/--channel 10.0/d' /kaggle/working/SwarmUI/launchtools/linux-dotnet-install.sh")
     #_run("uv pip install -U transformers --no-progress")
-    _run("uv pip install torch==2.9.1 torchvision==0.24.1 torchaudio==2.9.1 xformers==0.0.33.post2 triton==3.5.1 --index-url https://download.pytorch.org/whl/cu128 --no-progress")
+    _run("uv pip install torch==2.14.1 torchvision==0.29.1 torchaudio==2.11.0 --no-progress")
 
     # 7. Extensiones de SwarmUI
     ext_dir = SWARM_DIR / "src" / "Extensions"
@@ -130,11 +130,11 @@ def main() -> None:
     #clone("https://github.com/Hugs288/TipoForSwarmUI.git")
 
     # 8. SageAttention
-    os.chdir(WORK_DIR)
-    wheel = "sageattention-2.1.2-cp312-cp312-linux_x86_64.whl"
-    wget(f"https://huggingface.co/datasets/WhiteAiZ/T4_SageAttention2_For_Google_Colab/resolve/main/python%203.12/{wheel}", 
-         quiet=True, show_progress=False)
-    _run(f"uv pip install {wheel}")
+    #os.chdir(WORK_DIR)
+    #wheel = "sageattention-2.1.2-cp312-cp312-linux_x86_64.whl"
+    #wget(f"https://huggingface.co/datasets/WhiteAiZ/T4_SageAttention2_For_Google_Colab/resolve/main/python%203.12/{wheel}", 
+    #     quiet=True, show_progress=False)
+    #_run(f"uv pip install {wheel}")
 
     # 9. Wildcards
     wild_dir = SWARM_DIR / "Data" / "Wildcards"
