@@ -74,6 +74,7 @@ def main() -> None:
     wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/Swarmui_Kaggle/launchswarm.py")
     if not SWARM_DIR.exists():
         clone("https://github.com/mcmonkeyprojects/SwarmUI")
+        _run("rm -rf /kaggle/working/SwarmUI/docs/images")
     
     (SWARM_DIR / "Models").mkdir(parents=True, exist_ok=True)
     (SWARM_DIR / "dlbackend").mkdir(parents=True, exist_ok=True)
