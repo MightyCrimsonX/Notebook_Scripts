@@ -59,6 +59,15 @@ def clone(repo: str, cwd: Path | None = None) -> None:
 def main() -> None:
     os.chdir(WORK_DIR)
 
+    # 0. Instalar y configurar Python 3.12 y uv
+    _run("sudo apt-get update -y")
+    _run("sudo apt-get install -y python3.12 python3.12-dev python3.12-venv python3-pip")
+    _run("python3.12 -m ensurepip --upgrade")
+    _run("sudo rm -f /usr/lib/python3.12/EXTERNALLY-MANAGED")
+    _run("python3.12 -m pip install uv")
+    _run("python3.12 -m uv pip install -U pip setuptools wheel ipykernel --quiet")
+    _run("update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 100")
+
     # 1. Descargas iniciales y clonar SwarmUI
     wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/scripts/dmagic_swarm.py")
     wget("https://raw.githubusercontent.com/MightyCrimsonX/Notebook_Scripts/refs/heads/main/Swarmui_Kaggle/gestor_swarm.py")
@@ -127,6 +136,7 @@ def main() -> None:
     clone("https://github.com/jakstein/SwarmUI-Epsilon-Scaling.git")
     clone("https://github.com/MightyCrimsonX/Swarmui-Image-Encriptor.git")
     clone("https://github.com/MightyCrimsonX/SwarmUI-PixaiTagger.git")
+    clone("https://github.com/MightyCrimsonX/SwarmUI-Qwen35AnimaHead.git")
     #clone("https://github.com/Hugs288/TipoForSwarmUI.git")
 
     # 8. SageAttention
@@ -235,11 +245,10 @@ def main() -> None:
 
     #15 instalacion de custom nodes para comfyui
     os.chdir(COMFY_EXT_DIR)
-    #clone("https://github.com/MightyCrimsonX/Euler-Smea-Dyn-Sampler-Comfyui.git")
     clone("https://github.com/mcmonkeyprojects/sd-dynamic-thresholding.git")
-    #clone("https://github.com/KohakuBlueleaf/z-tipo-extension.git")
     clone("https://github.com/Fannovel16/comfyui_controlnet_aux.git")
     clone("https://github.com/ClownsharkBatwing/RES4LYF.git")
+    clone("https://github.com/nawka12/comfyui-qwen35-anima-head.git")
     RES4LYF_DIR = os.path.join(COMFY_EXT_DIR, "RES4LYF")
     CNET_AUX_DIR = os.path.join(COMFY_EXT_DIR, "comfyui_controlnet_aux")
     os.chdir(RES4LYF_DIR)
